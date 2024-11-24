@@ -1,6 +1,7 @@
 package com.erciyes.model;
 
 import com.erciyes.enums.CurrencyType;
+import com.erciyes.enums.HairdresserStatusType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -23,4 +24,6 @@ public class Hairdresser extends BaseEntity{
     private BigDecimal price;
 
     private CurrencyType currencyType;
+
+    private HairdresserStatusType hairdresserStatusType;
 }
