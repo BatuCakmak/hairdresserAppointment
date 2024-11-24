@@ -1,7 +1,6 @@
 package com.erciyes.model;
 
 import com.erciyes.enums.CurrencyType;
-import com.erciyes.enums.HairdresserStatusType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -29,5 +28,5 @@ public class Hairdresser extends BaseEntity{
     private CurrencyType currencyType;
 
     @Enumerated(EnumType.STRING)
-    private HairdresserStatusType hairdresserStatusType;
+    private com.erciyes.enums.AppointmentStatusType AppointmentStatusType;
 }
