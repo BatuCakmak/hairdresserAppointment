@@ -3,6 +3,8 @@ package com.erciyes.model;
 import com.erciyes.enums.CurrencyType;
 import com.erciyes.enums.HairdresserStatusType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,7 +25,9 @@ public class Hairdresser extends BaseEntity{
 
     private BigDecimal price;
 
+    @Enumerated(EnumType.STRING)
     private CurrencyType currencyType;
 
+    @Enumerated(EnumType.STRING)
     private HairdresserStatusType hairdresserStatusType;
 }
