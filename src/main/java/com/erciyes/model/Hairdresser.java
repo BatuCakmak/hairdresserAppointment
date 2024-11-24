@@ -27,6 +27,5 @@ public class Hairdresser extends BaseEntity{
     @Enumerated(EnumType.STRING)
     private CurrencyType currencyType;
 
-    @Enumerated(EnumType.STRING)
-    private com.erciyes.enums.AppointmentStatusType AppointmentStatusType;
+
 }
