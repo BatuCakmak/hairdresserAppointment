@@ -1,8 +1,16 @@
 package com.erciyes.dto;
 
+import com.erciyes.model.Account;
+import com.erciyes.model.Address;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -11,4 +19,11 @@ public class DtoUser extends DtoBase{
     private String firstName;
 
     private String lastName;
+    private String username;
+    private String password;
+    private Address address;
+    private Date birthOfDate;
+    private Account account;
+
+
 }

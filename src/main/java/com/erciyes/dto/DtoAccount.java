@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DtoAccount extends DtoBase{
+    private String accountNo;
 
     private BigDecimal amount;
 }

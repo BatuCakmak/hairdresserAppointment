@@ -21,8 +21,10 @@ public class BarberShop extends BaseEntity{
 
     private String phoneNumber;
 
+    private String description;
+
     @OneToOne
-    private Address addres;
+    private Address address;
 
     @OneToOne
     private Hairdresser hairdresser;
