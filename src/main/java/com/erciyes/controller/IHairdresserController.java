@@ -1,10 +1,10 @@
-package com.erciyes.service;
+package com.erciyes.controller;
 
 import com.erciyes.dto.DtoHairdresser;
 
 import java.util.List;
 
-public interface IHairdresserService{
+public interface IHairdresserController {
     public DtoHairdresser createHairdresser(DtoHairdresser dtoHairdresser);
     public List<DtoHairdresser> getAllHairdressers();
     public DtoHairdresser getHairdresserById(Long id);
