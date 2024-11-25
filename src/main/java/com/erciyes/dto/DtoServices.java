@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DtoServices {
+public class DtoServices extends DtoBase{
     private String name;
 
     private int duration;

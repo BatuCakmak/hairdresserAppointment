@@ -32,7 +32,7 @@ public class User extends BaseEntity implements UserDetails {
     private String tckn;
 
     @OneToOne
-    private Address addres;
+    private Address address;
 
     @OneToOne
     private Account account;

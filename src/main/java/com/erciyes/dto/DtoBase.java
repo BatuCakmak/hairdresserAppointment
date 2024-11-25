@@ -1,14 +1,19 @@
 package com.erciyes.dto;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DtoUser extends DtoBase{
-    private String firstName;
+public class DtoBase {
 
-    private String lastName;
+    private Long id;
+
+    private Date createTime;
+
 }

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DtoAddress {
+public class DtoAddress extends DtoBase{
     private String city;
 
     private String district;

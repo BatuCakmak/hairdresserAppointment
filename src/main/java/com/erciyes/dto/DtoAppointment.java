@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DtoAppointment {
+public class DtoAppointment extends DtoBase{
     private AppointmentStatusType appointmentStatusType;
     private LocalDateTime appointmentDateTime;
 }

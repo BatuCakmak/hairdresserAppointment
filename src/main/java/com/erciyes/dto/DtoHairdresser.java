@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DtoHairdresser {
+public class DtoHairdresser extends DtoBase{
     private String name;
 
     private String lastName;

@@ -7,6 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DtoBarberShop {
+public class DtoBarberShop extends DtoBase{
     private String name;
 }

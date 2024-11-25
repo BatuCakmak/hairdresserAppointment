@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DtoAccount {
+public class DtoAccount extends DtoBase{
 
     private BigDecimal amount;
 }

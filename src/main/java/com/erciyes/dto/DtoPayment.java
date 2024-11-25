@@ -9,6 +9,6 @@ import java.math.BigDecimal;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DtoPayment {
+public class DtoPayment extends DtoBase{
     private BigDecimal amount;
 }
