@@ -11,7 +11,6 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.awt.*;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
@@ -37,7 +36,7 @@ public class User extends BaseEntity implements UserDetails {
     private String tckn;
 
     @OneToOne
-    private Addres addres;
+    private Address addres;
 
     @OneToOne
     private Account account;

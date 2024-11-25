@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Addres extends BaseEntity {
+public class Address extends BaseEntity {
 
     private String city;
 

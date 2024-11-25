@@ -22,7 +22,7 @@ public class BarberShop extends BaseEntity{
     private String phoneNumber;
 
     @OneToOne
-    private Addres addres;
+    private Address addres;
 
     @OneToOne
     private Hairdresser hairdresser;
