@@ -1,4 +1,7 @@
 package com.erciyes.service.impl;
 
-public interface ServicesServiceImpl {
+import org.springframework.stereotype.Service;
+
+@Service
+public class ServicesServiceImpl {
 }
