@@ -18,5 +18,7 @@ public class HairdresserMapper {
         dtoHairdresser.setPrice(hairdresser.getPrice());
         dtoHairdresser.setLastName(hairdresser.getLastName());
         return dtoHairdresser;
+
     }
+    
 }
