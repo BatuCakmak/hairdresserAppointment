@@ -4,6 +4,7 @@ import com.erciyes.controller.IRestAuthenticationController;
 import com.erciyes.controller.RestBaseController;
 import com.erciyes.controller.RootEntity;
 import com.erciyes.dto.AuthRequest;
+import com.erciyes.dto.AuthResponse;
 import com.erciyes.dto.DtoUser;
 import com.erciyes.service.IAuthenticationService;
 import jakarta.validation.Valid;
@@ -22,5 +23,11 @@ public class RestAuthenticationControllerImpl extends RestBaseController impleme
     @Override
     public RootEntity<DtoUser> register(@Valid @RequestBody AuthRequest input) {
         return ok(authenticationService.register(input));
+    }
+
+    @PostMapping("/authenticate")
+    @Override
+    public RootEntity<AuthResponse> authenticate(@Valid @RequestBody AuthRequest input) {
+        return ok(authenticationService.authenticate(input));
     }
 }
