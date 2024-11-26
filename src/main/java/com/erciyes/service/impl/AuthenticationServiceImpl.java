@@ -5,6 +5,7 @@ import com.erciyes.dto.DtoUser;
 import com.erciyes.model.User;
 import com.erciyes.repository.UserRepository;
 import com.erciyes.service.IAuthenticationService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -33,6 +34,10 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 
     @Override
     public DtoUser register(AuthRequest input) {
-        return null;
+        User savedUser=userRepository.save(createUser(input));
+        DtoUser dtoUser=new DtoUser();
+        BeanUtils.copyProperties(savedUser,dtoUser);
+        //beanutils yerine manuel kopyalama yapacağız ileride
+        return dtoUser;
     }
 }
