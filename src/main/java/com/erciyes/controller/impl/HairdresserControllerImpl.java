@@ -2,6 +2,7 @@ package com.erciyes.controller.impl;
 
 import com.erciyes.controller.IHairdresserController;
 import com.erciyes.dto.DtoHairdresser;
+import com.erciyes.model.Hairdresser;
 import com.erciyes.service.IHairdresserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,8 @@ public class HairdresserControllerImpl implements IHairdresserController {
 
     @PostMapping("/create")
     @Override
-    public DtoHairdresser createHairdresser(@RequestBody @Valid DtoHairdresser dtoHairdresser) {
-        return hairdresserService.createHairdresser(dtoHairdresser);
+    public DtoHairdresser createHairdresser(@RequestBody @Valid Hairdresser hairdresser) {
+        return hairdresserService.createHairdresser(hairdresser);
     }
 
     @GetMapping("/list")
@@ -42,7 +43,7 @@ public class HairdresserControllerImpl implements IHairdresserController {
 
     @PutMapping("/update/{id}")
     @Override
-    public DtoHairdresser updateHairdresser(@PathVariable(name = "tourCompanyId") Long id, @RequestBody @Valid DtoHairdresser dtoHairdresser) {
-        return hairdresserService.updateHairdresser(id, dtoHairdresser);
+    public DtoHairdresser updateHairdresser(@PathVariable(name = "tourCompanyId") Long id, @RequestBody @Valid Hairdresser hairdresser) {
+        return hairdresserService.updateHairdresser(id, hairdresser);
     }
 }

@@ -5,6 +5,7 @@ import com.erciyes.mapper.HairdresserMapper;
 import com.erciyes.model.Hairdresser;
 import com.erciyes.repository.HairdresserRepository;
 import com.erciyes.service.IHairdresserService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,10 +23,11 @@ public class HairdresserServiceImpl implements IHairdresserService {
     private HairdresserMapper hairdresserMapper;
 
     @Override
-    public DtoHairdresser createHairdresser(DtoHairdresser dtoHairdresser) {
-        Hairdresser hairdresser =HairdresserMapper.toEntity(dtoHairdresser);
-        Hairdresser dbHairdresser=hairdresserRepository.save(hairdresser);
-        return hairdresserMapper.toDto(dbHairdresser);
+    public DtoHairdresser createHairdresser(Hairdresser hairdresser) {
+        DtoHairdresser dtoHairdresser = new DtoHairdresser();
+        hairdresserRepository.save(hairdresser);
+        BeanUtils.copyProperties(hairdresser, dtoHairdresser);
+        return dtoHairdresser;
     }
 
     @Override
@@ -55,10 +57,9 @@ public class HairdresserServiceImpl implements IHairdresserService {
     }
 
     @Override
-    public DtoHairdresser updateHairdresser(Long id, DtoHairdresser dtoHairdresser) {
+    public DtoHairdresser updateHairdresser(Long id, Hairdresser hairdresser) {
         Optional<Hairdresser> optional=hairdresserRepository.findById(id);
         if (optional.isPresent()){
-            Hairdresser hairdresser=hairdresserMapper.toEntity(dtoHairdresser);
             hairdresser.setId(id);
             Hairdresser dbHairdresser=hairdresserRepository.save(hairdresser);
             return hairdresserMapper.toDto(dbHairdresser);
