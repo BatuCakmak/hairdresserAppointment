@@ -19,6 +19,7 @@ public class SecurityConfig {
     public static final String AUTHENTICATE = "/authenticate";
     public static  final String REGISTER = "/register";
     public static final String REFRESH_TOKEN = "/refresh";
+    public static final String HAIRDRESSER = "/hairdresser/create";
 
     @Autowired
     private AuthenticationProvider authenticationProvider;
@@ -31,7 +32,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request->
-                        request.requestMatchers(AUTHENTICATE,REGISTER,REFRESH_TOKEN)
+                        request.requestMatchers(AUTHENTICATE,REGISTER,REFRESH_TOKEN, HAIRDRESSER)
                                 .permitAll().anyRequest().authenticated())
                 .sessionManagement(session-> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)

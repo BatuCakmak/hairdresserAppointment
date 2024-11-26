@@ -52,7 +52,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
            }
         }
         catch (ExpiredJwtException ex){
-            throw new BaseException(new ErrorMessage(MessageType.TOKEN_IS_EXPIREDİ, ex.getMessage()));
+            throw new BaseException(new ErrorMessage(MessageType.TOKEN_IS_EXPIREDI, ex.getMessage()));
         }
         catch (Exception e){
             throw new BaseException(new ErrorMessage(MessageType.GENERAL_EXCEPTİON,e.getMessage()));

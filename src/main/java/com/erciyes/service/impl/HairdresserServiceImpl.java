@@ -1,15 +1,21 @@
 package com.erciyes.service.impl;
 
 import com.erciyes.dto.DtoHairdresser;
+import com.erciyes.exception.BaseException;
+import com.erciyes.exception.ErrorMessage;
+import com.erciyes.exception.MessageType;
 import com.erciyes.mapper.HairdresserMapper;
 import com.erciyes.model.Hairdresser;
 import com.erciyes.repository.HairdresserRepository;
 import com.erciyes.service.IHairdresserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,8 +30,13 @@ public class HairdresserServiceImpl implements IHairdresserService {
 
     @Override
     public DtoHairdresser createHairdresser(Hairdresser hairdresser) {
+        hairdresser.setCreateTime(new Date());
         DtoHairdresser dtoHairdresser = new DtoHairdresser();
-        hairdresserRepository.save(hairdresser);
+        if(hairdresserRepository.existsHairdresserByNameAndLastName(hairdresser.getName(), hairdresser.getLastName())) {
+            throw new BaseException(new ErrorMessage(MessageType.HAIRDRESSER_ALREADY_EXIST,hairdresser.getName()+ hairdresser.getLastName()));
+        }else {
+            hairdresserRepository.save(hairdresser);
+        }
         BeanUtils.copyProperties(hairdresser, dtoHairdresser);
         return dtoHairdresser;
     }
