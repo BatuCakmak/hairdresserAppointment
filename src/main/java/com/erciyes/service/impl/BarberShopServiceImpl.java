@@ -1,16 +1,9 @@
 package com.erciyes.service.impl;
 
 import com.erciyes.dto.DtoBarberShop;
-import com.erciyes.dto.DtoHairdresser;
-import com.erciyes.exception.BaseException;
-import com.erciyes.exception.ErrorMessage;
-import com.erciyes.exception.MessageType;
 import com.erciyes.mapper.BarberShopMapper;
-import com.erciyes.mapper.HairdresserMapper;
 import com.erciyes.model.BarberShop;
-import com.erciyes.model.Hairdresser;
 import com.erciyes.repository.BarberShopRepository;
-import com.erciyes.repository.HairdresserRepository;
 import com.erciyes.service.IBarberShopService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
