@@ -17,13 +17,6 @@ import java.util.List;
 @AllArgsConstructor
 public class DtoUser extends DtoBase{
     private String firstName;
-
     private String lastName;
-    private String username;
-    private String password;
-    private Address address;
-    private Date birthOfDate;
-    private Account account;
-
 
 }
