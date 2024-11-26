@@ -19,7 +19,7 @@ public class SecurityConfig {
     public static final String AUTHENTICATE = "/authenticate";
     public static  final String REGISTER = "/register";
     public static final String REFRESH_TOKEN = "/refresh";
-    public static final String USER = "/user/create";
+    public static final String HAIRDRESSER = "/hairdresser/create";
 
     @Autowired
     private AuthenticationProvider authenticationProvider;
@@ -30,13 +30,17 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(request->
-                        request.requestMatchers(AUTHENTICATE,REGISTER,REFRESH_TOKEN, USER)
-                                .permitAll().anyRequest().authenticated())
-                .sessionManagement(session-> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authenticationProvider(authenticationProvider)
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        http
+                .csrf(AbstractHttpConfigurer::disable) // CSRF korumasını devre dışı bırak
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/authenticate", "/register", "/refreshToken").permitAll() // Herkese açık endpointler
+                        .anyRequest().authenticated() // Diğer tüm endpointler için oturum doğrulaması
+                )
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Stateless oturum yönetimi
+                )
+                .authenticationProvider(authenticationProvider) // AuthenticationProvider tanımlaması
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class); // JWT filtre eklemesi
 
         return http.build();
     }
