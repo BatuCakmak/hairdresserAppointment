@@ -82,9 +82,19 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 
 
             String accessToken=jwtService.generateToken(optUser.get());
-            RefreshToken savedRefreshToken=refreshTokenRepository.save(createRefreshToken(optUser.get()));
+            Optional<RefreshToken> refreshToken2=refreshTokenRepository.findByUserId(optUser.get().getId());
+            if (refreshToken2.isPresent()){
+                Optional<RefreshToken> optional=refreshTokenRepository.findByUserId(optUser.get().getId());
 
+                RefreshToken refreshToken=optional.get();
+                refreshTokenRepository.delete(refreshToken);
+                RefreshToken refreshToken1=refreshTokenRepository.save(createRefreshToken(optUser.get()));
+
+                return new AuthResponse(accessToken, refreshToken1.getRefreshToken());
+            }
+            RefreshToken savedRefreshToken=refreshTokenRepository.save(createRefreshToken(optUser.get()));
             return new AuthResponse(accessToken, savedRefreshToken.getRefreshToken());
+
         }
         catch (Exception e){
             throw new BaseException(new ErrorMessage(MessageType.USERNAME_OR_PASSWORD_INVALID,e.getMessage()));
