@@ -1,13 +1,11 @@
-package com.erciyes.service;
+package com.erciyes.controller;
 
-import com.erciyes.dto.DtoHairdresser;
 import com.erciyes.dto.DtoUser;
-import com.erciyes.model.Hairdresser;
 import com.erciyes.model.User;
 
 import java.util.List;
 
-public interface IUserService {
+public interface IUserController {
 
     public DtoUser createUser(User user);
     public List<DtoUser> getAllUsers();
