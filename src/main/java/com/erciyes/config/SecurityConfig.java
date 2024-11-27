@@ -20,6 +20,7 @@ public class SecurityConfig {
     public static  final String REGISTER = "/register";
     public static final String REFRESH_TOKEN = "/refresh";
     public static final String HAIRDRESSER = "/hairdresser/create";
+    public static final String USER = "/user/create";
 
     @Autowired
     private AuthenticationProvider authenticationProvider;
@@ -33,7 +34,7 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable) // CSRF korumasını devre dışı bırak
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/authenticate", "/register", "/refreshToken","/hairdresser/create").permitAll() // Herkese açık endpointler
+                        .requestMatchers("/authenticate", "/register", "/refreshToken", "/hairdresser/create", "/user/create").permitAll() // Herkese açık endpointler
                         .anyRequest().authenticated() // Diğer tüm endpointler için oturum doğrulaması
                 )
                 .sessionManagement(session ->
