@@ -1,11 +1,11 @@
-package com.erciyes.service;
+package com.erciyes.controller;
 
 import com.erciyes.dto.DtoAddress;
 import com.erciyes.model.Address;
 
 import java.util.List;
 
-public interface IAddressService {
+public interface IAddressController {
 
     public DtoAddress createAddress(Address address);
     public List<DtoAddress> getAddresses();
