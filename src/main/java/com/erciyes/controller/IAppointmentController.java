@@ -1,12 +1,12 @@
-package com.erciyes.service;
-
+package com.erciyes.controller;
 
 import com.erciyes.dto.DtoAppointment;
 import com.erciyes.model.Appointment;
 
 import java.util.List;
 
-public interface IAppointmentService {
+public interface IAppointmentController {
+
     public DtoAppointment createAppointment(Appointment appointment);
     public List<DtoAppointment> getAllAppointments();
     public DtoAppointment getAppointmentById(Long id);

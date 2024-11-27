@@ -37,13 +37,13 @@ public class HairdresserControllerImpl implements IHairdresserController {
 
     @DeleteMapping("/delete/{id}")
     @Override
-    public void deleteHairdresser(@PathVariable(name = "tourCompanyId") Long id) {
+    public void deleteHairdresser(@PathVariable(name = "id") Long id) {
          hairdresserService.deleteHairdresser(id);
     }
 
     @PutMapping("/update/{id}")
     @Override
-    public DtoHairdresser updateHairdresser(@PathVariable(name = "tourCompanyId") Long id, @RequestBody @Valid Hairdresser hairdresser) {
+    public DtoHairdresser updateHairdresser(@PathVariable(name = "id") Long id, @RequestBody @Valid Hairdresser hairdresser) {
         return hairdresserService.updateHairdresser(id, hairdresser);
     }
 }
