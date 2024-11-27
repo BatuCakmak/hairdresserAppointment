@@ -76,9 +76,10 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
         try {
             UsernamePasswordAuthenticationToken authenticationToken=
                     new UsernamePasswordAuthenticationToken(input.getUsername(),input.getPassword());
+            Optional<User> optUser =userRepository.findByUsername(input.getUsername());
+
             authenticationProvider.authenticate(authenticationToken);
 
-            Optional<User> optUser =userRepository.findByUsername(input.getUsername());
 
             String accessToken=jwtService.generateToken(optUser.get());
             RefreshToken savedRefreshToken=refreshTokenRepository.save(createRefreshToken(optUser.get()));
