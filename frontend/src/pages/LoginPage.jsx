@@ -49,7 +49,7 @@ function LoginPage() {
                         <input onChange={handleChange} name="password" className="input-box" type="password" placeholder="Password" />
 
                         <div>
-                            <button type="button" class="btn btn-outline-primary">Sign-Up</button>
+                            <button onClick={handleSignUp} type="button" class="btn btn-outline-primary">Sign-Up</button>
                         </div>
                     </div>
 
@@ -68,7 +68,7 @@ function LoginPage() {
                         <input className="input-box" type="password" placeholder="Password" />
 
                         <div>
-                            <button onClick={handleSignUp} type="button" class="btn btn-outline-primary">Login</button>
+                            <button type="button" class="btn btn-outline-primary">Login</button>
                         </div>
                     </div>
                 </div>
