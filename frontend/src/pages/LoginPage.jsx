@@ -3,37 +3,39 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import ReactCardFlip from "react-card-flip";
 import "../css/loginPage.css"
 import Header from "../components/Header";
+import axios from "axios";
+import {unstable_ClassNameGenerator} from "@mui/material";
 
 function LoginPage() {
 
     const [isFlipped, setIsFlipped] = useState(false);
 
-    const [formData, setFormData] = useState({
-        name: "",
-        surname: "",
-        username: "",
-        email: "",
-        password: "",
-    });
-
-
-
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
-    };
+    const [userName,setUserName] = useState("");
+    const [password,setPassword] = useState("");
 
     function flipCard() {
         setIsFlipped(!isFlipped);
     }
 
+    const handleSignup = async () => {
 
-    const handleSignUp = async () => {
+        const createUser = {
+            username : userName,
+            password : password
+        };
 
+        try {
+            const response = await axios.post("http://localhost:8080/register",createUser)
+        }
+        catch (error) {
+            console.error("Kayıt oluşturulurken hata oluştu:", error);
+        }
+    }
 
-    };
-
-
+    useEffect(() => {
+        console.log(userName)
+        console.log(password)
+    }, );
 
     return (
         <div className="main-div-login">
@@ -43,14 +45,14 @@ function LoginPage() {
             <ReactCardFlip flipDirection="horizontal" isFlipped={isFlipped}>
                 <div className="card">
                     <div className="card-front-left">
-                        <input onChange={handleChange} name="name" style={{ textTransform: "capitalize" }} className="input-box" type="text" placeholder="Name" />
-                        <input onChange={handleChange} name="surname" style={{ textTransform: "capitalize" }} className="input-box" type="text" placeholder="Surname" />
-                        <input onChange={handleChange} name="username" className="input-box" type="text" placeholder="Username" />
-                        <input onChange={handleChange} name="email" className="input-box" type="email" placeholder="Mail" />
-                        <input onChange={handleChange} name="password" className="input-box" type="password" placeholder="Password" />
+                        <input name="name" style={{ textTransform: "capitalize" }} className="input-box" type="text" placeholder="Name" />
+                        <input name="surname" style={{ textTransform: "capitalize" }} className="input-box" type="text" placeholder="Surname" />
+                        <input onChange={(e) => setUserName(e.target.value)} name="username" className="input-box" type="text" placeholder="Username" />
+                        <input name="email" className="input-box" type="email" placeholder="Mail" />
+                        <input onChange={(e) => setPassword(e.target.value)} name="password" className="input-box" type="password" placeholder="Password" />
 
                         <div>
-                            <button onClick={handleSignUp} type="button" class="btn btn-outline-primary">Sign-Up</button>
+                            <button onClick={() => handleSignup()} type="button" className="btn btn-outline-primary">Sign-Up</button>
                         </div>
                     </div>
 
@@ -69,7 +71,7 @@ function LoginPage() {
                         <input className="input-box" type="password" placeholder="Password" />
 
                         <div>
-                            <button type="button" class="btn btn-outline-primary">Login</button>
+                            <button type="button" className="btn btn-outline-primary">Login</button>
                         </div>
                     </div>
                 </div>
