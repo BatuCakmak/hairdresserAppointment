@@ -41,7 +41,7 @@ function LoginPage() {
 
     useEffect(() => {
         console.log(users.city)
-    })
+    });
 
     return (
         <div className="main-div-login">
