@@ -61,7 +61,7 @@ function LoginPage() {
                         <input name="name" style={{ textTransform: "capitalize" }} className="input-box" type="text" placeholder="Name" />
                         <input name="surname" style={{ textTransform: "capitalize" }} className="input-box" type="text" placeholder="Surname" />
                         <input onChange={(e) => setUserName(e.target.value)} name="username" className="input-box" type="text" placeholder="Username" />
-                        <input name="email" className="input-box" type="email" placeholder="Mail" />
+                        <input name="email" className="input-box" type="emaill" placeholder="Mail" />
                         <input onChange={(e) => setPassword(e.target.value)} name="password" className="input-box" type="password" placeholder="Password" />
 
                         <div>
