@@ -4,6 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Email;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,17 +20,15 @@ import java.util.List;
 @AllArgsConstructor
 public class User extends BaseEntity implements UserDetails {
 
-    @Column(name = "first_name")
-    private String firstName;
-    @Column(name = "last_name")
-    private String lastName;
 
+    private String firstName;
+    private String lastName;
+    private String email;
     private String username;
     private String password;
-    @Column(name = "birth_of_date")
     private Date birthOfDate;
-    @Column(name = "tckn")
     private String tckn;
+    private String phoneNumber;
 
     @OneToOne
     private Address address;

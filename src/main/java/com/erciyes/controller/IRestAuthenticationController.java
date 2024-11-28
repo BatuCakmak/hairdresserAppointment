@@ -1,13 +1,11 @@
 package com.erciyes.controller;
 
-import com.erciyes.dto.AuthRequest;
-import com.erciyes.dto.AuthResponse;
-import com.erciyes.dto.DtoUser;
+import com.erciyes.dto.*;
 
 public interface IRestAuthenticationController {
 
-    public RootEntity<DtoUser> register(AuthRequest input);
+    public RootEntity<DtoUser> register(DtoRegister register);
 
-    public RootEntity<AuthResponse> authenticate(AuthRequest input);
+    public RootEntity<AuthResponse> authenticate(DtoLogin login);
 
 }
