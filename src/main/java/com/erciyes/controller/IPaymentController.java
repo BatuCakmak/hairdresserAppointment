@@ -1,13 +1,11 @@
-package com.erciyes.service;
+package com.erciyes.controller;
 
 import com.erciyes.dto.DtoPayment;
-import com.erciyes.dto.DtoUser;
 import com.erciyes.model.Payment;
-import com.erciyes.model.User;
 
 import java.util.List;
 
-public interface IPaymentService {
+public interface IPaymentController {
 
     public DtoPayment createPayment(Payment payment);
     public List<DtoPayment> getAllPayments();
