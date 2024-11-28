@@ -3,11 +3,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import ReactCardFlip from "react-card-flip";
 import "../css/loginPage.css"
 import Header from "../components/Header";
+import axios from "axios";
 
 function LoginPage() {
 
     const [isFlipped, setIsFlipped] = useState(false);
-
+    const [users, setUsers] = useState([]);
     const [formData, setFormData] = useState({
         name: "",
         surname: "",
@@ -29,10 +30,18 @@ function LoginPage() {
 
 
     const handleSignUp = async () => {
-
+        const response = axios.get("http://localhost:8080/address/list")
+            .then((response) => {
+                setUsers(response.data);
+            })
+            .catch((error) => {
+                console.error("hata", error);
+            })
     };
 
-
+    useEffect(() => {
+        console.log(users.city)
+    })
 
     return (
         <div className="main-div-login">
