@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +24,7 @@ public class AddressServiceImpl implements IAddressService {
 
     @Override
     public DtoAddress createAddress(Address address) {
+        address.setCreateTime(new Date());
         addressRepository.save(address);
         DtoAddress dtoAddress = addressMapper.toDto(address);
         return dtoAddress;

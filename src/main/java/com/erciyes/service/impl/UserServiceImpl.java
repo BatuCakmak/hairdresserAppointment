@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +26,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public DtoUser createUser(User user) {
+        user.setCreateTime(new Date());
         userRepository.save(user);
         DtoUser dtoUser = userMapper.toDto(user);
         return dtoUser;
