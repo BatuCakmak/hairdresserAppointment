@@ -17,7 +17,7 @@ public class AddressControllerImpl implements IAddressController {
     IAddressService addressService;
 
     @Override
-    @PostMapping("/save")
+    @PostMapping("/create")
     public DtoAddress createAddress(@RequestBody Address address) {
         return addressService.createAddress(address);
     }
