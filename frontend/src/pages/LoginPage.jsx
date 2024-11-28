@@ -29,28 +29,7 @@ function LoginPage() {
 
 
     const handleSignUp = async () => {
-        try {
-            const response = await fetch("http://localhost:8080/register", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    username: formData.username,
-                    password: formData.password,
-                }),
-            });
-
-            if (response.ok) {
-                const data = await response.json();
-                alert("Kayıt Başarılı: " + data.username);
-            } else {
-                const errorData = await response.json();
-                alert("Kayıt Başarısız: " + errorData.message);
-            }
-        } catch (error) {
-            console.error("Kayıt sırasında bir hata oluştu:", error);
-        }
+        console.log("butona bastı")
     };
 
 
