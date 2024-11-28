@@ -18,6 +18,10 @@ public class UserMapper {
         DtoUser dtoUser = new DtoUser();
         dtoUser.setFirstName(user.getFirstName());
         dtoUser.setLastName(user.getLastName());
+        dtoUser.setEmail(user.getEmail());
+        dtoUser.setPassword(user.getPassword());
+        dtoUser.setPhoneNumber(user.getPhoneNumber());
+        dtoUser.setUsername(user.getUsername());
 
         return dtoUser;
     }

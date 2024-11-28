@@ -1,8 +1,6 @@
 package com.erciyes.service.impl;
 
-import com.erciyes.dto.AuthRequest;
-import com.erciyes.dto.AuthResponse;
-import com.erciyes.dto.DtoUser;
+import com.erciyes.dto.*;
 import com.erciyes.exception.BaseException;
 import com.erciyes.exception.ErrorMessage;
 import com.erciyes.exception.MessageType;
@@ -43,11 +41,16 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
     private RefreshTokenRepository refreshTokenRepository;
 
 
-    private User createUser(AuthRequest input){
+    private User createUser(DtoRegister input){
         User user=new User();
         user.setCreateTime(new Date());
         user.setUsername(input.getUsername());
         user.setPassword(passwordEncoder.encode(input.getPassword()));
+        user.setEmail(input.getEmail());
+        user.setFirstName(input.getFirstName());
+        user.setLastName(input.getLastName());
+        user.setPhoneNumber(input.getPhoneNumber());
+
         //eklenecek  birşeyler
         return user;
     }
@@ -63,8 +66,8 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 
 
     @Override
-    public DtoUser register(AuthRequest input) {
-        User savedUser=userRepository.save(createUser(input));
+    public DtoUser register(DtoRegister register) {
+        User savedUser=userRepository.save(createUser(register));
         DtoUser dtoUser=new DtoUser();
         BeanUtils.copyProperties(savedUser,dtoUser);
         //beanutils yerine manuel kopyalama yapacağız ileride
@@ -72,11 +75,11 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
     }
 
     @Override
-    public AuthResponse authenticate(AuthRequest input) {
+    public AuthResponse authenticate(DtoLogin login) {
         try {
             UsernamePasswordAuthenticationToken authenticationToken=
-                    new UsernamePasswordAuthenticationToken(input.getUsername(),input.getPassword());
-            Optional<User> optUser =userRepository.findByUsername(input.getUsername());
+                    new UsernamePasswordAuthenticationToken(login.getUsername(),login.getPassword());
+            Optional<User> optUser =userRepository.findByUsername(login.getUsername());
 
             authenticationProvider.authenticate(authenticationToken);
 

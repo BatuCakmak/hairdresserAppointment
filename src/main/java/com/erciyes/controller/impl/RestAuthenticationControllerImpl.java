@@ -3,9 +3,7 @@ package com.erciyes.controller.impl;
 import com.erciyes.controller.IRestAuthenticationController;
 import com.erciyes.controller.RestBaseController;
 import com.erciyes.controller.RootEntity;
-import com.erciyes.dto.AuthRequest;
-import com.erciyes.dto.AuthResponse;
-import com.erciyes.dto.DtoUser;
+import com.erciyes.dto.*;
 import com.erciyes.service.IAuthenticationService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +19,13 @@ public class RestAuthenticationControllerImpl extends RestBaseController impleme
 
     @PostMapping("/register")
     @Override
-    public RootEntity<DtoUser> register(@Valid @RequestBody AuthRequest input) {
-        return ok(authenticationService.register(input));
+    public RootEntity<DtoUser> register(@Valid @RequestBody DtoRegister register) {
+        return ok(authenticationService.register(register));
     }
 
     @PostMapping("/authenticate")
     @Override
-    public RootEntity<AuthResponse> authenticate(@Valid @RequestBody AuthRequest input) {
-        return ok(authenticationService.authenticate(input));
+    public RootEntity<AuthResponse> authenticate(@Valid @RequestBody DtoLogin login) {
+        return ok(authenticationService.authenticate(login));
     }
 }

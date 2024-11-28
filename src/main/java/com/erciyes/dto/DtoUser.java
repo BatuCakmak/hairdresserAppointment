@@ -18,5 +18,10 @@ import java.util.List;
 public class DtoUser extends DtoBase{
     private String firstName;
     private String lastName;
+    private String email;
+    private String password;
+    private String username;
+    private String phoneNumber;
+
 
 }
