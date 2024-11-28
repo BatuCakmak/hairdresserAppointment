@@ -32,23 +32,10 @@ function LoginPage() {
         }
     }
 
-    const handleLogin = async () => {
-
-        const loginUser = {
-            username: userName,
-            password: password
-        }
-
-        try {
-            const response = await axios.post("http://localhost:8080/authenticate", loginUser)
-
-            const status = response.status;
-            console.log("Status kodu : ", status)
-        }
-        catch (error) {
-            console.error("Girişte hata var", error);
-        }
-    }
+    useEffect(() => {
+        console.log(userName)
+        console.log(password)
+    },);
 
     return (
         <div className="main-div-login">
@@ -61,7 +48,7 @@ function LoginPage() {
                         <input name="name" style={{ textTransform: "capitalize" }} className="input-box" type="text" placeholder="Name" />
                         <input name="surname" style={{ textTransform: "capitalize" }} className="input-box" type="text" placeholder="Surname" />
                         <input onChange={(e) => setUserName(e.target.value)} name="username" className="input-box" type="text" placeholder="Username" />
-                        <input name="email" className="input-box" type="emaill" placeholder="Mail" />
+                        <input name="email" className="input-box" type="email" placeholder="Mail" />
                         <input onChange={(e) => setPassword(e.target.value)} name="password" className="input-box" type="password" placeholder="Password" />
 
                         <div>
@@ -80,8 +67,8 @@ function LoginPage() {
                     </div>
 
                     <div className="card-back-right">
-                        <input onChange={(e) => setUserName(e.target.value)} className="input-box" type="text" placeholder="Username" />
-                        <input onChange={(e) => setPassword(e.target.value)} className="input-box" type="password" placeholder="Password" />
+                        <input className="input-box" type="text" placeholder="Username" />
+                        <input className="input-box" type="password" placeholder="Password" />
 
                         <div>
                             <button type="button" className="btn btn-outline-primary">Login</button>
