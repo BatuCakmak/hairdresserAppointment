@@ -10,7 +10,11 @@ function LoginPage() {
 
     const [isFlipped, setIsFlipped] = useState(false);
 
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
     const [userName, setUserName] = useState("");
+    const [phoneNumber, setPhoneNumber] = useState("");
+    const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     function flipCard() {
@@ -20,7 +24,11 @@ function LoginPage() {
     const handleSignup = async () => {
 
         const createUser = {
+            firstName: firstName,
+            lastName: lastName,
             username: userName,
+            phoneNumber: phoneNumber,
+            email: email,
             password: password
         };
 
@@ -32,11 +40,6 @@ function LoginPage() {
         }
     }
 
-    useEffect(() => {
-        console.log(userName)
-        console.log(password)
-    },);
-
     return (
         <div className="main-div-login">
 
@@ -45,10 +48,11 @@ function LoginPage() {
             <ReactCardFlip flipDirection="horizontal" isFlipped={isFlipped}>
                 <div className="card">
                     <div className="card-front-left">
-                        <input name="name" style={{ textTransform: "capitalize" }} className="input-box" type="text" placeholder="Name" />
-                        <input name="surname" style={{ textTransform: "capitalize" }} className="input-box" type="text" placeholder="Surname" />
+                        <input onChange={(e) => setFirstName(e.target.value)} name="name" style={{ textTransform: "capitalize" }} className="input-box" type="text" placeholder="Name" />
+                        <input onChange={(e) => setLastName(e.target.value)} name="surname" style={{ textTransform: "capitalize" }} className="input-box" type="text" placeholder="Surname" />
                         <input onChange={(e) => setUserName(e.target.value)} name="username" className="input-box" type="text" placeholder="Username" />
-                        <input name="email" className="input-box" type="email" placeholder="Mail" />
+                        <input onChange={(e) => setPhoneNumber(e.target.value)} name="phoneNumber" className="input-box" type="number" placeholder="Phone Number" />
+                        <input onChange={(e) => setEmail(e.target.value)} name="email" className="input-box" type="email" placeholder="Mail" />
                         <input onChange={(e) => setPassword(e.target.value)} name="password" className="input-box" type="password" placeholder="Password" />
 
                         <div>
