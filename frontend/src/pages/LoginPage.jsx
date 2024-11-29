@@ -51,16 +51,13 @@ function LoginPage() {
         }
 
         try {
-            const response = await axios.post("http://localhost:8080/authenticate", loginUser).catch((error) => {
-                if (error.response) {
-                    console.log(error.response.data);
-                    console.log(error.response.status);
-                }
-
-            })
+            const response = await axios.post("http://localhost:8080/authenticate", loginUser)
         }
         catch (error) {
-            console.error("hata", error)
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+            }
         }
 
     }
