@@ -4,7 +4,7 @@ import ReactCardFlip from "react-card-flip";
 import "../css/loginPage.css"
 import Header from "../components/Header";
 import axios from "axios";
-import { unstable_ClassNameGenerator } from "@mui/material";
+import { paperClasses, unstable_ClassNameGenerator } from "@mui/material";
 
 function LoginPage() {
 
@@ -40,6 +40,24 @@ function LoginPage() {
         }
     }
 
+    const handleLogin = async () => {
+
+        const loginUser = {
+            username: userName,
+            password: password
+        }
+
+        try {
+            const response = await axios.post("http://localhost:8080/authenticate", loginUser)
+            const status = response.status;
+            console.log("Status Kodu:", status);
+            console.log(response.data)
+        }
+        catch (error) {
+            console.error("Girişte Hata", error)
+        }
+    }
+
     return (
         <div className="main-div-login">
 
@@ -71,11 +89,11 @@ function LoginPage() {
                     </div>
 
                     <div className="card-back-right">
-                        <input className="input-box" type="text" placeholder="Username" />
-                        <input className="input-box" type="password" placeholder="Password" />
+                        <input onChange={(e) => setUserName(e.target.value)} className="input-box" type="text" placeholder="Username" />
+                        <input onChange={(e) => setPassword(e.target.value)} className="input-box" type="password" placeholder="Password" />
 
                         <div>
-                            <button type="button" className="btn btn-outline-primary">Login</button>
+                            <button onClick={() => handleLogin()} type="button" className="btn btn-outline-primary">Login</button>
                         </div>
                     </div>
                 </div>
