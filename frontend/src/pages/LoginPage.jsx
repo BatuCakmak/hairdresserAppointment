@@ -49,8 +49,11 @@ function LoginPage() {
 
         try {
             const response = await axios.post("http://localhost:8080/authenticate", loginUser)
-            console.log("Status Kodu:", response.data.status);
-            console.log(response.data)
+            if (response.status === 200) {
+                console.log(response.status)
+            } else if (response.status === 400) {
+                console.log(response.data.message)
+            }
         }
         catch (error) {
             console.error("Girişte Hata", error)
