@@ -67,6 +67,9 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 
     @Override
     public DtoUser register(DtoRegister register) {
+        if(userRepository.existsByUsername(register.getUsername())){
+            throw new BaseException(new ErrorMessage(MessageType.USERNAME_ALREADY_EXIST,register.getUsername()));
+        }
         User savedUser=userRepository.save(createUser(register));
         DtoUser dtoUser=new DtoUser();
         BeanUtils.copyProperties(savedUser,dtoUser);
