@@ -48,15 +48,16 @@ function LoginPage() {
             password: password
         }
 
-        try {
-            const response = await axios.post("http://localhost:8080/authenticate", loginUser)
-            const status = response.status;
-            console.log("Status Kodu:", response.data.status);
-            console.log(response.data)
-        }
-        catch (error) {
-            console.error("Girişte Hata", error)
-        }
+
+            const response = await axios.post("http://localhost:8080/authenticate", loginUser).catch((error) =>
+            {
+                if(error.response){
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                }
+            })
+
+
     }
 
     return (
