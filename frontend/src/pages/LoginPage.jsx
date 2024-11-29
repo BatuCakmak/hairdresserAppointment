@@ -31,13 +31,14 @@ function LoginPage() {
             email: email,
             password: password
         };
+            const response = await axios.post("http://localhost:8080/register", createUser).catch((error) =>
+            {
+                if(error.response){
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                }
+            })
 
-        try {
-            const response = await axios.post("http://localhost:8080/register", createUser)
-        }
-        catch (error) {
-            console.error("Kayıt oluşturulurken hata oluştu:", error);
-        }
     }
 
     const handleLogin = async () => {
