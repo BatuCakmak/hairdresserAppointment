@@ -13,7 +13,8 @@ public enum MessageType {
     USERNAME_NOT_FOUND("1006","username bulunamadı"),
     USERNAME_OR_PASSWORD_INVALID("1007","kullanıcı adı veya şifre hatalı"),
     GENERAL_EXCEPTİON("9999","genel bir hata oluştu"),
-    HAIRDRESSER_ALREADY_EXIST("1006","Kuafor zaten mevcut");
+    HAIRDRESSER_ALREADY_EXIST("1006","Kuafor zaten mevcut"),
+    USERNAME_ALREADY_EXIST("1006", "Kullanici zaten mevcut" );
 
 
     private String code;
