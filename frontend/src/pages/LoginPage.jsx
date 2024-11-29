@@ -55,6 +55,7 @@ function LoginPage() {
             if (response.status === 200) {
                 console.log("status kodu : ", response.status);
                 console.log(response.data)
+                navigate("/");
             }
         }
         catch (error) {
