@@ -47,7 +47,7 @@ function LoginPage() {
             password: password
         }
 
-        const response = await axios.post("http://localhost:8080/register", createUser).catch((error) => {
+        const response = await axios.post("http://localhost:8080/register", loginUser).catch((error) => {
             if (error.response) {
                 console.log(error.response.data);
                 console.log(error.response.status);
