@@ -51,7 +51,7 @@ function LoginPage() {
         try {
             const response = await axios.post("http://localhost:8080/authenticate", loginUser)
             const status = response.status;
-            console.log("Status Kodu:", status);
+            console.log("Status Kodu:", response.data.status);
             console.log(response.data)
         }
         catch (error) {
