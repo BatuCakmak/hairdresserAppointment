@@ -24,7 +24,7 @@ public class AddressServiceImpl implements IAddressService {
 
     @Override
     public DtoAddress createAddress(Address address) {
-        address.setCreateTime(new Date());
+        address. setCreateTime(new Date());
         addressRepository.save(address);
         DtoAddress dtoAddress = addressMapper.toDto(address);
         return dtoAddress;
