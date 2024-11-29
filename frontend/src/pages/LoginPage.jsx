@@ -5,6 +5,7 @@ import "../css/loginPage.css"
 import Header from "../components/Header";
 import axios from "axios";
 import { paperClasses, unstable_ClassNameGenerator } from "@mui/material";
+import { useNavigate } from "react-router";
 
 function LoginPage() {
 
@@ -16,6 +17,8 @@ function LoginPage() {
     const [phoneNumber, setPhoneNumber] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const navigate = useNavigate();
 
     function flipCard() {
         setIsFlipped(!isFlipped);
@@ -47,12 +50,19 @@ function LoginPage() {
             password: password
         }
 
-        const response = await axios.post("http://localhost:8080/authenticate", loginUser).catch((error) => {
-            if (error.response) {
-                console.log(error.response.data);
-                console.log(error.response.status);
-            }
-        })
+        try {
+            const response = await axios.post("http://localhost:8080/authenticate", loginUser).catch((error) => {
+                if (error.response) {
+                    console.log(error.response.data);
+                    console.log(error.response.status);
+                }
+
+            })
+        }
+        catch (error) {
+            console.error("hata", error)
+        }
+
     }
 
     return (
