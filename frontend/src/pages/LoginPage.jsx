@@ -47,17 +47,12 @@ function LoginPage() {
             password: password
         }
 
-        try {
-            const response = await axios.post("http://localhost:8080/authenticate", loginUser)
-            if (response.status === 200) {
-                console.log(response.status)
-            } else if (response.status === 400) {
-                console.log(response.data.message)
+        const response = await axios.post("http://localhost:8080/register", createUser).catch((error) => {
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
             }
-        }
-        catch (error) {
-            console.error("Girişte Hata", error)
-        }
+        })
     }
 
     return (
