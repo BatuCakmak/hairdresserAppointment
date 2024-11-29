@@ -31,13 +31,12 @@ function LoginPage() {
             email: email,
             password: password
         };
-            const response = await axios.post("http://localhost:8080/register", createUser).catch((error) =>
-            {
-                if(error.response){
-                    console.log(error.response.data);
-                    console.log(error.response.status);
-                }
-            })
+        const response = await axios.post("http://localhost:8080/register", createUser).catch((error) => {
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+            }
+        })
 
     }
 
@@ -50,7 +49,6 @@ function LoginPage() {
 
         try {
             const response = await axios.post("http://localhost:8080/authenticate", loginUser)
-            const status = response.status;
             console.log("Status Kodu:", response.data.status);
             console.log(response.data)
         }
