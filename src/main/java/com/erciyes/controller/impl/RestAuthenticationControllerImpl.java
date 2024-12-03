@@ -15,11 +15,19 @@ public class RestAuthenticationControllerImpl extends RestBaseController impleme
 
     @Autowired
     private IAuthenticationService authenticationService;
+    private final MailControllerImpl emailController; // EmailController'ı enjekte ediyoruz.
+
+    // Constructor bazlı bağımlılık enjeksiyonu
+    public RestAuthenticationControllerImpl(MailControllerImpl emailController) {
+        this.emailController = emailController;
+    }
 
     @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/register")
     @Override
     public RootEntity<DtoUser> register(@Valid @RequestBody DtoRegister register) {
+        String email = register.getEmail();
+        emailController.sendMail(email);
         return ok(authenticationService.register(register));
     }
 

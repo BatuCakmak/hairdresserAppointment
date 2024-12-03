@@ -29,7 +29,7 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable) // CSRF korumasını devre dışı bırak
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/authenticate", "/register", "/refreshToken", "/hairdresser/**", "/user/**", "/address/**", "/admin/**").permitAll() // Herkese açık endpointler
+                        .requestMatchers("/authenticate", "/register", "/refreshToken", "/hairdresser/**", "/user/**", "/address/**", "/admin/**", "normal").permitAll() // Herkese açık endpointler
                         .anyRequest().authenticated() // Diğer tüm endpointler için oturum doğrulaması
                 )
                 .sessionManagement(session ->
