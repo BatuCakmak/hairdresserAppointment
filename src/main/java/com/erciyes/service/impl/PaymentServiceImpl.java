@@ -74,67 +74,72 @@ public class PaymentServiceImpl implements IPaymentService {
 
 
     @Override
-    public com.iyzipay.model.Payment makePayment(PaymentRequest paymentRequest) {
+    public com.iyzipay.model.Payment makePayment(CreatePaymentRequest createPaymentRequest) {
         CreatePaymentRequest request = new CreatePaymentRequest();
         request.setLocale(Locale.TR.getValue());
         request.setConversationId("123456789");//orderId
-        request.setPrice(paymentRequest.getPrice());
-        request.setPaidPrice(paymentRequest.getPrice());
+        request.setPrice(createPaymentRequest.getPrice());
+        request.setPaidPrice(createPaymentRequest.getPrice());
         request.setCurrency(Currency.TRY.name());
         request.setInstallment(1);
 
         // Kullanıcı bilgilerini ayarla
         Buyer buyer = new Buyer();
         buyer.setId("BY789");
-        buyer.setName(paymentRequest.getBuyerName());
-        buyer.setSurname(paymentRequest.getBuyerSurname());
-        buyer.setEmail(paymentRequest.getBuyerEmail());
-        buyer.setIdentityNumber(paymentRequest.getBuyerIdentityNumber());
-        buyer.setRegistrationAddress(paymentRequest.getBuyerAddress());
-        buyer.setIp(paymentRequest.getIp());
-        buyer.setCity(paymentRequest.getCity());
-        buyer.setCountry(paymentRequest.getCountry());
+        buyer.setName(createPaymentRequest.getBuyer().getName());
+        buyer.setSurname(createPaymentRequest.getBuyer().getSurname());
+        buyer.setEmail(createPaymentRequest.getBuyer().getEmail());
+        buyer.setIdentityNumber(createPaymentRequest.getBuyer().getIdentityNumber());
+        buyer.setRegistrationAddress(createPaymentRequest.getBuyer().getRegistrationAddress());
+        buyer.setIp(createPaymentRequest.getBuyer().getIp());
+        buyer.setCity(createPaymentRequest.getBuyer().getCity());
+        buyer.setCountry(createPaymentRequest.getBuyer().getCountry());
         request.setBuyer(buyer);
 
 
         // Kart bilgilerini ayarla
         PaymentCard paymentCard = new PaymentCard();
-        paymentCard.setCardHolderName(paymentRequest.getCardHolderName());
-        paymentCard.setCardNumber(paymentRequest.getCardNumber());
-        paymentCard.setExpireMonth(paymentRequest.getExpireMonth());
-        paymentCard.setExpireYear(paymentRequest.getExpireYear());
-        paymentCard.setCvc(paymentRequest.getCvc());
+        paymentCard.setCardHolderName(createPaymentRequest.getPaymentCard().getCardHolderName());
+        paymentCard.setCardNumber(createPaymentRequest.getPaymentCard().getCardNumber());
+        paymentCard.setExpireMonth(createPaymentRequest.getPaymentCard().getExpireMonth());
+        paymentCard.setExpireYear(createPaymentRequest.getPaymentCard().getExpireYear());
+        paymentCard.setCvc(createPaymentRequest.getPaymentCard().getCvc());
+        paymentCard.setRegisterCard(0);
         request.setPaymentCard(paymentCard);
         request.setBuyer(buyer);
 
 
         // Adres bilgisi
         Address shippingAddress = new Address();
-        shippingAddress.setContactName(paymentRequest.getBuyerName());
-        shippingAddress.setCity(paymentRequest.getCity());
-        shippingAddress.setCountry(paymentRequest.getCountry());
-        shippingAddress.setAddress(paymentRequest.getBuyerAddress());
-        shippingAddress.setZipCode(paymentRequest.getZipCode());
+        shippingAddress.setContactName(createPaymentRequest.getShippingAddress().getContactName());
+        shippingAddress.setCity(createPaymentRequest.getShippingAddress().getCity());
+        shippingAddress.setCountry(createPaymentRequest.getShippingAddress().getCountry());
+        shippingAddress.setAddress(createPaymentRequest.getShippingAddress().getAddress());
+        shippingAddress.setZipCode(createPaymentRequest.getShippingAddress().getZipCode());
         request.setShippingAddress(shippingAddress);
 
 // Billing Address
         Address billingAddress = new Address();
-        billingAddress.setContactName(paymentRequest.getBuyerName());
-        billingAddress.setCity(paymentRequest.getCity());
-        billingAddress.setCountry(paymentRequest.getCountry());
-        billingAddress.setAddress(paymentRequest.getBuyerAddress());
-        billingAddress.setZipCode(paymentRequest.getZipCode());
+        billingAddress.setContactName(createPaymentRequest.getBillingAddress().getContactName());
+        billingAddress.setCity(createPaymentRequest.getBillingAddress().getCity());
+        billingAddress.setCountry(createPaymentRequest.getBillingAddress().getCountry());
+        billingAddress.setAddress(createPaymentRequest.getBillingAddress().getAddress());
+        billingAddress.setZipCode(createPaymentRequest.getBillingAddress().getZipCode());
         request.setBillingAddress(billingAddress);
 
 
         // Sepet bilgisi (zorunlu olabilir)
-        List<PaymentItem> paymentItems = new ArrayList<>();
-        PaymentItem paymentItem = new PaymentItem();
-        paymentItem.setItemId("PI12345");
-        paymentItem.setPrice(new BigDecimal("1.0"));
-        paymentItems.add(paymentItem);
-
-        request.setBasketId("B67832");
+        List<BasketItem> basketItems = new ArrayList<BasketItem>();
+        BasketItem firstBasketItem = new BasketItem();
+        firstBasketItem.setId("BI101");
+        firstBasketItem.setName("Binocular");
+        firstBasketItem.setCategory1("Collectibles");
+        firstBasketItem.setCategory2("Accessories");
+        firstBasketItem.setItemType(BasketItemType.PHYSICAL.name());
+        firstBasketItem.setPrice(new BigDecimal("0.3"));
+        firstBasketItem.setSubMerchantKey("sub merchant key");
+        firstBasketItem.setSubMerchantPrice(new BigDecimal("0.27"));
+        basketItems.add(firstBasketItem);
 
 
 

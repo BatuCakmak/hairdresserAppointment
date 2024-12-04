@@ -3,6 +3,7 @@ package com.erciyes.service;
 import com.erciyes.dto.DtoPayment;
 import com.erciyes.dto.PaymentRequest;
 import com.erciyes.model.Payment;
+import com.iyzipay.request.CreatePaymentRequest;
 
 import java.util.List;
 
@@ -13,6 +14,6 @@ public interface IPaymentService {
     public DtoPayment getPaymentById(Long id);
     public void deletePayment(Long id);
     public DtoPayment updatePayment(Long id, Payment payment);
-    public com.iyzipay.model.Payment makePayment(PaymentRequest paymentRequest);
+    public com.iyzipay.model.Payment makePayment(CreatePaymentRequest createPaymentRequest);
 
 }

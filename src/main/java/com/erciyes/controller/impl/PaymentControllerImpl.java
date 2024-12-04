@@ -8,6 +8,7 @@ import com.erciyes.dto.DtoUser;
 import com.erciyes.dto.PaymentRequest;
 import com.erciyes.model.Payment;
 import com.erciyes.service.IPaymentService;
+import com.iyzipay.request.CreatePaymentRequest;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -56,9 +57,9 @@ public class PaymentControllerImpl implements IPaymentController {
 
 
     @PostMapping("/pay")
-    public RootEntity<?> makePayment(@RequestBody PaymentRequest paymentRequest) {
+    public RootEntity<?> makePayment( @RequestBody CreatePaymentRequest createPaymentRequest) {
         try {
-            return ok(paymentService.makePayment(paymentRequest));
+            return ok(paymentService.makePayment(createPaymentRequest));
         } catch (Exception e) {
             return null;
         }

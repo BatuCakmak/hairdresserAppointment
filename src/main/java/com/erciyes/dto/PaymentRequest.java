@@ -1,6 +1,7 @@
 package com.erciyes.dto;
 
 import com.erciyes.model.BaseEntity;
+import jakarta.persistence.ManyToMany;
 import lombok.Data;
 
 import java.math.BigDecimal;
