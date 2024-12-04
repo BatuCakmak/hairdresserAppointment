@@ -10,6 +10,7 @@ import com.erciyes.model.User;
 import com.erciyes.repository.RefreshTokenRepository;
 import com.erciyes.repository.UserRepository;
 import com.erciyes.service.IAuthenticationService;
+import com.erciyes.service.MailService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -36,6 +37,8 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 
     @Autowired
     private JWTService jwtService;
+    @Autowired
+    private MailService mailService;
 
     @Autowired
     private RefreshTokenRepository refreshTokenRepository;
@@ -73,6 +76,7 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
         User savedUser=userRepository.save(createUser(register));
         DtoUser dtoUser=new DtoUser();
         BeanUtils.copyProperties(savedUser,dtoUser);
+
         //beanutils yerine manuel kopyalama yapacağız ileride
         return dtoUser;
     }
