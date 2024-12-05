@@ -28,7 +28,8 @@ public class Appointment extends BaseEntity{
     private LocalDateTime startTime;
 
     private LocalDateTime endTime;
-
+    @ManyToOne // Appointment ile Barbershop arasında ilişki
+    private BarberShop barbershop;
 
     @ManyToOne
     private Services services;

@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -34,8 +35,8 @@ public class BarberShop extends BaseEntity{
     @OneToOne
     private Address address;
 
-    @OneToMany(mappedBy = "barbershop")
-    private List<Hairdresser> hairdresser;
+//    @OneToMany(mappedBy = "barbershop")
+//    private List<Hairdresser> hairdresser = new ArrayList<>();
 
 
 

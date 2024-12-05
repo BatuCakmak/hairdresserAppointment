@@ -1,6 +1,7 @@
 package com.erciyes.dto;
 
 import com.erciyes.enums.AppointmentStatusType;
+import com.erciyes.model.BarberShop;
 import com.erciyes.model.Hairdresser;
 import com.erciyes.model.Services;
 import com.erciyes.model.User;
@@ -27,5 +28,8 @@ public class DtoAppointment extends DtoBase{
     @ManyToOne
     @JoinColumn(name = "hairdresser_id")
     private Hairdresser hairdresser;
+
+    @ManyToOne // Appointment ile Barbershop arasında ilişki
+    private BarberShop barbershop;
 
 }
