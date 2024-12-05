@@ -24,6 +24,8 @@ public class Services extends BaseEntity{
 
     private BigDecimal price;
 
+    private int durationTime;
+
     @ManyToOne
     private BarberShop barberShop;
 //    @ManyToOne(optional = false)
@@ -31,6 +33,7 @@ public class Services extends BaseEntity{
 
 //    public Appointment getAppointments() {
 //        return appointments;
+
 //    }
 //
 //    public void setAppointments(Appointment appointments) {

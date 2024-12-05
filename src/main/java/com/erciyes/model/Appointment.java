@@ -25,11 +25,13 @@ public class Appointment extends BaseEntity{
     @ManyToOne
     private User user;
 
-    @ManyToMany
-    private List<Services> services=new ArrayList<>();
+    @ManyToOne
+    private Services services;
 
     @ManyToOne
+    @JoinColumn(name = "hairdresser_id")
     private Hairdresser hairdresser;
+
 
 
 }
