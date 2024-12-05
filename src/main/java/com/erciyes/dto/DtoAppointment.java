@@ -2,7 +2,9 @@ package com.erciyes.dto;
 
 import com.erciyes.enums.AppointmentStatusType;
 import com.erciyes.model.Hairdresser;
+import com.erciyes.model.Services;
 import com.erciyes.model.User;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,9 +16,16 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DtoAppointment extends DtoBase{
-    private AppointmentStatusType appointmentStatusType;
-    private LocalDateTime appointmentDateTime;
-    private User user;
+    private LocalDateTime startTime;
+
+    private LocalDateTime endTime;
+
+
+    @ManyToOne
+    private Services services;
+
+    @ManyToOne
+    @JoinColumn(name = "hairdresser_id")
     private Hairdresser hairdresser;
 
 }

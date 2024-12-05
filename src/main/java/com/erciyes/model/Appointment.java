@@ -17,13 +17,18 @@ import java.util.List;
 @Table(name = "appointment")
 public class Appointment extends BaseEntity{
 
-    private LocalDateTime appointmentDateTime;
+//    private LocalDateTime appointmentDateTime;
 
-    @Enumerated(EnumType.STRING)
-    private AppointmentStatusType appointmentStatusType;
+//    @Enumerated(EnumType.STRING)
+//    private AppointmentStatusType appointmentStatusType;
 
-    @ManyToOne
-    private User user;
+//    @ManyToOne
+//    private User user;
+
+    private LocalDateTime startTime;
+
+    private LocalDateTime endTime;
+
 
     @ManyToOne
     private Services services;

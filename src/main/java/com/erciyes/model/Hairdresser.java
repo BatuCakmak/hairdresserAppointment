@@ -20,7 +20,7 @@ public class Hairdresser extends BaseEntity{
 
     private String lastName;
 
-    private BigDecimal price;
+//    private BigDecimal price;
 
     @Enumerated(EnumType.STRING)
     private CurrencyType currencyType;
@@ -29,7 +29,7 @@ public class Hairdresser extends BaseEntity{
     @JoinColumn(name = "barbershop_id")
     private BarberShop barberShop;
 
-    @OneToMany(mappedBy = "hairdresser",cascade = CascadeType.ALL)
-    private List<Appointment> appointments;
+//    @OneToMany(mappedBy = "hairdresser",cascade = CascadeType.ALL)
+//    private List<Appointment> appointments;
 
 }
