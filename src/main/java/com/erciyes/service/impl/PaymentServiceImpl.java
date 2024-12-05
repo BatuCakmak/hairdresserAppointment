@@ -106,7 +106,7 @@ public class PaymentServiceImpl implements IPaymentService {
         paymentCard.setCvc(createPaymentRequest.getPaymentCard().getCvc());
         paymentCard.setRegisterCard(0);
         request.setPaymentCard(paymentCard);
-        request.setBuyer(buyer);
+       // request.setBuyer(buyer);
 
 
         // Adres bilgisi
@@ -136,10 +136,11 @@ public class PaymentServiceImpl implements IPaymentService {
         firstBasketItem.setCategory1("Collectibles");
         firstBasketItem.setCategory2("Accessories");
         firstBasketItem.setItemType(BasketItemType.PHYSICAL.name());
-        firstBasketItem.setPrice(new BigDecimal("0.3"));
-        firstBasketItem.setSubMerchantKey("sub merchant key");
-        firstBasketItem.setSubMerchantPrice(new BigDecimal("0.27"));
+        firstBasketItem.setPrice(new BigDecimal("100.00"));
+//        firstBasketItem.setSubMerchantKey("sub merchant key");
+//        firstBasketItem.setSubMerchantPrice(new BigDecimal("100.00"));
         basketItems.add(firstBasketItem);
+        request.setBasketItems(basketItems);
 
 
 
