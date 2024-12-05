@@ -137,8 +137,6 @@ public class PaymentServiceImpl implements IPaymentService {
         firstBasketItem.setCategory2("Accessories");
         firstBasketItem.setItemType(BasketItemType.PHYSICAL.name());
         firstBasketItem.setPrice(new BigDecimal("100.00"));
-//        firstBasketItem.setSubMerchantKey("sub merchant key");
-//        firstBasketItem.setSubMerchantPrice(new BigDecimal("100.00"));
         basketItems.add(firstBasketItem);
         request.setBasketItems(basketItems);
 

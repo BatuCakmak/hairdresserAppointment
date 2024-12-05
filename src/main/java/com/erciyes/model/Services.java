@@ -26,4 +26,14 @@ public class Services extends BaseEntity{
 
     @ManyToOne
     private BarberShop barberShop;
+//    @ManyToOne(optional = false)
+//    private Appointment appointments;
+
+//    public Appointment getAppointments() {
+//        return appointments;
+//    }
+//
+//    public void setAppointments(Appointment appointments) {
+//        this.appointments = appointments;
+//    }
 }

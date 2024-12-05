@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -22,6 +24,9 @@ public class Appointment extends BaseEntity{
 
     @ManyToOne
     private User user;
+
+    @ManyToMany
+    private List<Services> services=new ArrayList<>();
 
     @ManyToOne
     private Hairdresser hairdresser;
