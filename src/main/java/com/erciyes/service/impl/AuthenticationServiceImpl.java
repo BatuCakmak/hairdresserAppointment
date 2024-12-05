@@ -1,6 +1,7 @@
 package com.erciyes.service.impl;
 
 import com.erciyes.dto.*;
+import com.erciyes.enums.Role;
 import com.erciyes.exception.BaseException;
 import com.erciyes.exception.ErrorMessage;
 import com.erciyes.exception.MessageType;
@@ -53,6 +54,7 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
         user.setFirstName(input.getFirstName());
         user.setLastName(input.getLastName());
         user.setPhoneNumber(input.getPhoneNumber());
+        user.setRole(Role.USER);
 
         //eklenecek  birşeyler
         return user;

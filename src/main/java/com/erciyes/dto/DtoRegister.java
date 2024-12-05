@@ -1,5 +1,6 @@
 package com.erciyes.dto;
 
+import com.erciyes.enums.Role;
 import com.erciyes.model.Account;
 import com.erciyes.model.Address;
 import jakarta.persistence.Column;
@@ -24,5 +25,6 @@ public class DtoRegister {
     @Email(message = "Gecerli bir email adresi giriniz", regexp = "^[a-zA-Z0-9._%+-]+@(gmail\\.com|hotmail\\.com|outlook\\.com)$")
     private String email;
     private String phoneNumber;
+    private Role role;
 
 }
