@@ -29,7 +29,7 @@ public class Hairdresser extends BaseEntity{
     @JoinColumn(name = "barbershop_id")
     private BarberShop barberShop;
 
-//    @OneToMany(mappedBy = "hairdresser",cascade = CascadeType.ALL)
-//    private List<Appointment> appointments;
+    @OneToMany(mappedBy = "hairdresser",cascade = CascadeType.ALL)
+    private List<Appointment> appointments;
 
 }

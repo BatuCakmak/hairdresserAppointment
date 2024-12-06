@@ -1,10 +1,8 @@
 package com.erciyes.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,8 +33,8 @@ public class BarberShop extends BaseEntity{
     @OneToOne
     private Address address;
 
-//    @OneToMany(mappedBy = "barbershop")
-//    private List<Hairdresser> hairdresser = new ArrayList<>();
+    @OneToMany
+    private List<Hairdresser> hairdressers;
 
 
 

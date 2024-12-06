@@ -35,7 +35,7 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable) // CSRF korumasını devre dışı bırak
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/authenticate", "/register", "/refreshToken",  "/user/**", "/address/**", "normal","payment/**").permitAll()
+                        .requestMatchers("/authenticate", "/register", "/refreshToken", "/hairdresser/**","/appointment/available-slots","/appointment/**", "/user/**", "/address/**", "normal","payment/**","/barbershop/**").permitAll()
 
                         .requestMatchers("/admin/**").hasRole(ADMIN.name())
 

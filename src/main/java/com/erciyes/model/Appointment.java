@@ -35,7 +35,7 @@ public class Appointment extends BaseEntity{
     private Services services;
 
     @ManyToOne
-    @JoinColumn(name = "hairdresser_id")
+    @JoinColumn(name = "hair_dresser_id")
     private Hairdresser hairdresser;
 
 
