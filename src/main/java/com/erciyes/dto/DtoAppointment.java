@@ -24,11 +24,11 @@ public class DtoAppointment extends DtoBase{
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 
-    private Long userId;
-    private Long serviceId;
+    private User user;
+    private Services service;
 
-    private Long hairdresserId;
+    private Hairdresser hairdresser;
 
-    private Long barbershopId;
+    private BarberShop barbershop;
 
 }

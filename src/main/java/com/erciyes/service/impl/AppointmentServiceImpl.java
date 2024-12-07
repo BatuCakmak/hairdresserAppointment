@@ -53,13 +53,13 @@ public class AppointmentServiceImpl implements IAppointmentService {
 //        BeanUtils.copyProperties(appointment, dtoAppointment);
 //        return dtoAppointment;
 
-            BarberShop barberShop = barberShopRepository.findById(request.getBarbershopId())
+            BarberShop barberShop = barberShopRepository.findById(request.getBarbershop().getId())
                     .orElseThrow(() -> new RuntimeException("Barber shop not found"));
 
-            Services service = servicesRepository.findById(request.getServiceId())
+            Services service = servicesRepository.findById(request.getService().getId())
                     .orElseThrow(() -> new RuntimeException("Service not found"));
 
-            User user = userRepository.findById(request.getUserId())
+            User user = userRepository.findById(request.getUser().getId())
                     .orElseThrow(() -> new RuntimeException("User not found"));
 
 //            LocalDateTime startDateTime = LocalDateTime.of(request.getDate(), request.getStartTime());
@@ -75,9 +75,9 @@ public class AppointmentServiceImpl implements IAppointmentService {
 
             Appointment appointment = new Appointment();
             appointment.setCreateTime(new Date());
-            appointment.setBarbershop(barberShop);
-            appointment.setService(service);
-            appointment.setUser(user);
+            appointment.setBarbershop(request.getBarbershop());
+            appointment.setService(request.getService());
+            appointment.setUser(request.getUser());
             appointment.setStartTime(startTime);
             appointment.setEndTime(endTime);
             appointment.setStatusType(AppointmentStatusType.BOOKED);
