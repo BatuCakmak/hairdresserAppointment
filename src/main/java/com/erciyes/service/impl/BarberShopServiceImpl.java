@@ -3,6 +3,7 @@ package com.erciyes.service.impl;
 import com.erciyes.dto.DtoBarberShop;
 import com.erciyes.mapper.BarberShopMapper;
 import com.erciyes.model.BarberShop;
+import com.erciyes.model.Hairdresser;
 import com.erciyes.repository.BarberShopRepository;
 import com.erciyes.service.IBarberShopService;
 import org.springframework.beans.BeanUtils;
@@ -55,16 +56,43 @@ public class BarberShopServiceImpl implements IBarberShopService {
 
     @Override
     public void deleteBarberShop(Long id) {
-          barberShopRepository.deleteById(id);
+        Optional<BarberShop> optional=barberShopRepository.findById(id);
+
+        //relaitonları yani foreign keyleri silmeden nesne silinmiyo bu yüzden null atadım
+        optional.get().setAddress(null);
+        optional.get().set;
+        updateBarberShop(optional.get().getId(),optional.get());
+        if (optional.isPresent()){
+            barberShopRepository.delete(optional.get());
+        }
     }
 
     @Override
     public DtoBarberShop updateBarberShop(Long id, BarberShop barberShop) {
         Optional<BarberShop> optional=barberShopRepository.findById(id);
         if (optional.isPresent()){
-            barberShop.setId(id);
-            BarberShop dbBarberShop=barberShopRepository.save(barberShop);
-            return barberShopMapper.toDto(dbBarberShop);
+            BarberShop dbBarberShop=optional.get();
+
+
+            dbBarberShop.setName(barberShop.getName());
+            dbBarberShop.setPhoneNumber(barberShop.getPhoneNumber());
+            dbBarberShop.setDescription(barberShop.getDescription());
+            dbBarberShop.setOpeningTime(barberShop.getOpeningTime());
+            dbBarberShop.setClosingTime(barberShop.getClosingTime());
+            dbBarberShop.setAddress(barberShop.getAddress());
+
+
+
+            List<Hairdresser> hairdresserList=new ArrayList<>();
+            for (Hairdresser hairdresser : barberShop.getHairdressers()){
+                hairdresserList.add(hairdresser);
+            }
+            dbBarberShop.setHairdressers(hairdresserList);
+
+
+            BarberShop updatedBarberShop=barberShopRepository.save(dbBarberShop);
+            return barberShopMapper.toDto(updatedBarberShop);
+
         }
         return null;
     }

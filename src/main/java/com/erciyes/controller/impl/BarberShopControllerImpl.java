@@ -29,12 +29,12 @@ public class BarberShopControllerImpl implements IBarberShopController {
     public DtoBarberShop getBarberShopById(@PathVariable(name= "id")Long id) {
         return barberShopService.getBarberShopById(id);
     }
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     @Override
     public void deleteBarberShop(@PathVariable(name = "id")Long id) {
         barberShopService.deleteBarberShop(id);
     }
-    @PutMapping("/update")
+    @PutMapping("/update/{id}")
     @Override
     public DtoBarberShop updateBarberShop(@PathVariable(name = "id") Long id, @RequestBody @Valid BarberShop barberShop) {
         return barberShopService.updateBarberShop(id, barberShop);
