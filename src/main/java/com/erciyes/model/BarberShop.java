@@ -1,13 +1,16 @@
 package com.erciyes.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -23,11 +26,18 @@ public class BarberShop extends BaseEntity{
 
     private String description;
 
+    private LocalTime openingTime;
+
+    private LocalTime closingTime;
+
     @OneToOne
     private Address address;
 
-    @OneToOne
-    private Hairdresser hairdresser;
+    @OneToMany
+    private List<Hairdresser> hairdressers;
+
+
+
 
 
 }

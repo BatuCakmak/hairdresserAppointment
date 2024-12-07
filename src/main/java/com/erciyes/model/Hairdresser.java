@@ -1,15 +1,13 @@
 package com.erciyes.model;
 
 import com.erciyes.enums.CurrencyType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Data
@@ -22,10 +20,16 @@ public class Hairdresser extends BaseEntity{
 
     private String lastName;
 
-    private BigDecimal price;
+//    private BigDecimal price;
 
     @Enumerated(EnumType.STRING)
     private CurrencyType currencyType;
 
+    @ManyToOne
+    @JoinColumn(name = "barbershop_id")
+    private BarberShop barberShop;
+
+    @OneToMany(mappedBy = "hairdresser",cascade = CascadeType.ALL)
+    private List<Appointment> appointments;
 
 }

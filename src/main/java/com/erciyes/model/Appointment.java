@@ -5,7 +5,9 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -15,16 +17,27 @@ import java.util.Date;
 @Table(name = "appointment")
 public class Appointment extends BaseEntity{
 
-    private LocalDateTime appointmentDateTime;
+//    private LocalDateTime appointmentDateTime;
 
-    @Enumerated(EnumType.STRING)
-    private AppointmentStatusType appointmentStatusType;
+//    @Enumerated(EnumType.STRING)
+//    private AppointmentStatusType appointmentStatusType;
+
+//    @ManyToOne
+//    private User user;
+
+    private LocalDateTime startTime;
+
+    private LocalDateTime endTime;
+    @ManyToOne // Appointment ile Barbershop arasında ilişki
+    private BarberShop barbershop;
 
     @ManyToOne
-    private User user;
+    private Services services;
 
     @ManyToOne
+    @JoinColumn(name = "hair_dresser_id")
     private Hairdresser hairdresser;
+
 
 
 }

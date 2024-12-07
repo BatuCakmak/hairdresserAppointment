@@ -1,6 +1,7 @@
 package com.erciyes.service.impl;
 
 import com.erciyes.dto.*;
+import com.erciyes.enums.Role;
 import com.erciyes.exception.BaseException;
 import com.erciyes.exception.ErrorMessage;
 import com.erciyes.exception.MessageType;
@@ -10,6 +11,7 @@ import com.erciyes.model.User;
 import com.erciyes.repository.RefreshTokenRepository;
 import com.erciyes.repository.UserRepository;
 import com.erciyes.service.IAuthenticationService;
+import com.erciyes.service.MailService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -36,6 +38,8 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 
     @Autowired
     private JWTService jwtService;
+    @Autowired
+    private MailService mailService;
 
     @Autowired
     private RefreshTokenRepository refreshTokenRepository;
@@ -50,6 +54,7 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
         user.setFirstName(input.getFirstName());
         user.setLastName(input.getLastName());
         user.setPhoneNumber(input.getPhoneNumber());
+        user.setRole(Role.ADMIN);
 
         //eklenecek  birşeyler
         return user;
@@ -73,6 +78,7 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
         User savedUser=userRepository.save(createUser(register));
         DtoUser dtoUser=new DtoUser();
         BeanUtils.copyProperties(savedUser,dtoUser);
+
         //beanutils yerine manuel kopyalama yapacağız ileride
         return dtoUser;
     }

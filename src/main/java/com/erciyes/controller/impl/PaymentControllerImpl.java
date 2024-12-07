@@ -1,13 +1,22 @@
 package com.erciyes.controller.impl;
 
 import com.erciyes.controller.IPaymentController;
+import com.erciyes.controller.RootEntity;
 import com.erciyes.dto.DtoPayment;
+import com.erciyes.dto.DtoRegister;
+import com.erciyes.dto.DtoUser;
+import com.erciyes.dto.PaymentRequest;
 import com.erciyes.model.Payment;
 import com.erciyes.service.IPaymentService;
+import com.iyzipay.request.CreatePaymentRequest;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static com.erciyes.controller.RootEntity.ok;
 
 @RestController
 @RequestMapping("/payment")
@@ -44,5 +53,15 @@ public class PaymentControllerImpl implements IPaymentController {
     @Override
     public DtoPayment updatePayment(@PathVariable(name = "id") @RequestBody Long id, Payment payment) {
         return paymentService.updatePayment(id, payment);
+    }
+
+
+    @PostMapping("/pay")
+    public RootEntity<?> makePayment( @RequestBody CreatePaymentRequest createPaymentRequest) {
+        try {
+            return ok(paymentService.makePayment(createPaymentRequest));
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

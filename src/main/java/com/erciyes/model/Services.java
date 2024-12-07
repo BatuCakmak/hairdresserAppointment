@@ -24,6 +24,19 @@ public class Services extends BaseEntity{
 
     private BigDecimal price;
 
+    private int durationTime;
+
     @ManyToOne
     private BarberShop barberShop;
+//    @ManyToOne(optional = false)
+//    private Appointment appointments;
+
+//    public Appointment getAppointments() {
+//        return appointments;
+
+//    }
+//
+//    public void setAppointments(Appointment appointments) {
+//        this.appointments = appointments;
+//    }
 }
