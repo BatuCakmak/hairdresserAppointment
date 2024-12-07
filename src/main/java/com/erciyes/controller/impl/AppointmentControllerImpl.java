@@ -2,6 +2,7 @@ package com.erciyes.controller.impl;
 
 import com.erciyes.controller.IAppointmentController;
 import com.erciyes.dto.DtoAppointment;
+import com.erciyes.dto.TimeSlot;
 import com.erciyes.enums.ServiceType;
 import com.erciyes.model.Appointment;
 import com.erciyes.model.BarberShop;
@@ -11,6 +12,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -22,8 +24,9 @@ import java.util.List;
 @RequestMapping("/appointment")
 public class AppointmentControllerImpl implements IAppointmentController {
 
-
+    @Autowired
     private  IAppointmentService appointmentService;
+    @Autowired
     private  BarberShopRepository barbershopRepository;
 
     @Autowired
@@ -33,20 +36,18 @@ public class AppointmentControllerImpl implements IAppointmentController {
     }
 
 
-    @GetMapping("/available-slots")
-    @Override
-    public List<LocalDateTime> getAvailableTimeSlots(
+    @GetMapping("/availability")
+    public ResponseEntity<List<TimeSlot>> getAvailableTimeSlots(
             @RequestParam Long barbershopId,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date,
-            @RequestParam ServiceType serviceType) {
-        BarberShop barbershop = barbershopRepository.findById(barbershopId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Barbershop not found"));
-        return appointmentService.getAvailableTimeSlots(barbershop, date, serviceType);
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate day) {
+        List<TimeSlot> availableSlots = appointmentService.getAvailableTimeSlots(barbershopId, day);
+        return ResponseEntity.ok(availableSlots);
     }
+
 
     @PostMapping("/create")
     @Override
-    public DtoAppointment createAppointment(@RequestBody @Valid Appointment appointment) {
+    public DtoAppointment createAppointment(@RequestBody @Valid DtoAppointment appointment) {
         return appointmentService.createAppointment(appointment);
     }
 

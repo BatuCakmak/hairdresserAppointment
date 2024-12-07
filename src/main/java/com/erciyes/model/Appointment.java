@@ -3,8 +3,11 @@ package com.erciyes.model;
 import com.erciyes.enums.AppointmentStatusType;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -25,9 +28,13 @@ public class Appointment extends BaseEntity{
 //    @ManyToOne
 //    private User user;
 
-    private LocalDateTime startTime;
+    private LocalTime startTime;
 
-    private LocalDateTime endTime;
+    private LocalTime endTime;
+    private LocalDate date;
+
+    @Enumerated(EnumType.STRING)
+    private AppointmentStatusType statusType;
 
     @ManyToOne
     @JoinColumn(name = "hairdresser_id")
@@ -41,6 +48,8 @@ public class Appointment extends BaseEntity{
     @JoinColumn(name = "barbershop_id")
     private BarberShop barbershop;
 
+    @OneToOne
+    private User user;
 
 
 }
