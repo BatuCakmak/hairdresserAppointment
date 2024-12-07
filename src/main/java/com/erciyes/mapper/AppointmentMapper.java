@@ -10,10 +10,10 @@ public class AppointmentMapper {
         if(appointment == null) return null;
         DtoAppointment dtoAppointment = new DtoAppointment();
         dtoAppointment.setHairdresser(appointment.getHairdresser());
-        dtoAppointment.setServices(appointment.getServices());
+        dtoAppointment.setServices(appointment.getService());
+        dtoAppointment.setBarbershop(appointment.getBarbershop());
         dtoAppointment.setEndTime(appointment.getEndTime());
         dtoAppointment.setStartTime(appointment.getStartTime());
-        dtoAppointment.setCreateTime(appointment.getCreateTime());
         dtoAppointment.setId(appointment.getId());
         dtoAppointment.setCreateTime(appointment.getCreateTime());
         return dtoAppointment;

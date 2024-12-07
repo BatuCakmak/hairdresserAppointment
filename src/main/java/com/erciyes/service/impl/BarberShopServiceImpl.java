@@ -60,7 +60,6 @@ public class BarberShopServiceImpl implements IBarberShopService {
 
         //relaitonları yani foreign keyleri silmeden nesne silinmiyo bu yüzden null atadım
         optional.get().setAddress(null);
-        optional.get().set;
         updateBarberShop(optional.get().getId(),optional.get());
         if (optional.isPresent()){
             barberShopRepository.delete(optional.get());

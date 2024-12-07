@@ -28,15 +28,18 @@ public class Appointment extends BaseEntity{
     private LocalDateTime startTime;
 
     private LocalDateTime endTime;
-    @ManyToOne // Appointment ile Barbershop arasında ilişki
-    private BarberShop barbershop;
 
     @ManyToOne
-    private Services services;
-
-    @ManyToOne
-    @JoinColumn(name = "hair_dresser_id")
+    @JoinColumn(name = "hairdresser_id")
     private Hairdresser hairdresser;
+
+    @ManyToOne
+    @JoinColumn(name = "service_id")
+    private Services service;
+
+    @ManyToOne
+    @JoinColumn(name = "barbershop_id")
+    private BarberShop barbershop;
 
 
 

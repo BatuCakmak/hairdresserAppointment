@@ -26,17 +26,10 @@ public class Services extends BaseEntity{
 
     private int durationTime;
 
-    @ManyToOne
-    private BarberShop barberShop;
-//    @ManyToOne(optional = false)
-//    private Appointment appointments;
+    @ManyToMany(mappedBy = "services")
+    private List<Hairdresser> hairdressers;
 
-//    public Appointment getAppointments() {
-//        return appointments;
+    @OneToMany(mappedBy = "service", cascade = CascadeType.ALL)
+    private List<Appointment> appointments;
 
-//    }
-//
-//    public void setAppointments(Appointment appointments) {
-//        this.appointments = appointments;
-//    }
 }
