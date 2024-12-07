@@ -62,10 +62,14 @@ public class AppointmentServiceImpl implements IAppointmentService {
             User user = userRepository.findById(request.getUserId())
                     .orElseThrow(() -> new RuntimeException("User not found"));
 
-            LocalDateTime startDateTime = LocalDateTime.of(request.getDate(), request.getStartTime());
-            LocalTime endDateTime = LocalTime.from(startDateTime.plusMinutes(service.getDuration()));
+//            LocalDateTime startDateTime = LocalDateTime.of(request.getDate(), request.getStartTime());
+//            LocalTime endDateTime = LocalTime.from(startDateTime.plusMinutes(service.getDuration()));
 
-            if (!isSlotAvailable(barberShop.getId(), request.getDate(), request.getStartTime(), request.getStartTime().plusMinutes(service.getDuration()))) {
+        LocalDateTime startTime = LocalDateTime.of(request.getDate(), request.getStartTime());
+        LocalDateTime endTime = startTime.plusMinutes(service.getDuration());
+
+
+        if (!isSlotAvailable(barberShop.getId(), request.getDate(), request.getStartTime(), request.getStartTime().plusMinutes(service.getDuration()))) {
                 throw new RuntimeException("Seçilen zaman dilimi uygun değil!");
             }
 
@@ -74,12 +78,13 @@ public class AppointmentServiceImpl implements IAppointmentService {
             appointment.setBarbershop(barberShop);
             appointment.setService(service);
             appointment.setUser(user);
-            appointment.setStartTime(LocalTime.from(startDateTime));
-            appointment.setEndTime(LocalTime.from(endDateTime));
+            appointment.setStartTime(startTime);
+            appointment.setEndTime(endTime);
             appointment.setStatusType(AppointmentStatusType.BOOKED);
 
+
             appointmentRepository.save(appointment);
-        return null;
+        return             appointmentMapper.toDto(appointment);
     }
 
     @Override

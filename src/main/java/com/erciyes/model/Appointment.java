@@ -28,10 +28,10 @@ public class Appointment extends BaseEntity{
 //    @ManyToOne
 //    private User user;
 
-    private LocalTime startTime;
+    private LocalDateTime startTime;
 
-    private LocalTime endTime;
-    private LocalDate date;
+    private LocalDateTime endTime;
+    private LocalDateTime date;
 
     @Enumerated(EnumType.STRING)
     private AppointmentStatusType statusType;
