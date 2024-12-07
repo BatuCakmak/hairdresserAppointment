@@ -14,6 +14,8 @@ public class AppointmentMapper {
         dtoAppointment.setEndTime(appointment.getEndTime());
         dtoAppointment.setStartTime(appointment.getStartTime());
         dtoAppointment.setCreateTime(appointment.getCreateTime());
+        dtoAppointment.setId(appointment.getId());
+        dtoAppointment.setCreateTime(appointment.getCreateTime());
         return dtoAppointment;
     }
 }

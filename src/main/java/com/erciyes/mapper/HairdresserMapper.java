@@ -14,6 +14,8 @@ public class HairdresserMapper {
         DtoHairdresser dtoHairdresser = new DtoHairdresser();
         dtoHairdresser.setName(hairdresser.getName());
         dtoHairdresser.setLastName(hairdresser.getLastName());
+        dtoHairdresser.setId(hairdresser.getId());
+        dtoHairdresser.setCreateTime(hairdresser.getCreateTime());
         return dtoHairdresser;
     }
 }

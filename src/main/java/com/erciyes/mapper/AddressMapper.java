@@ -11,6 +11,8 @@ public class AddressMapper {
         DtoAddress dtoAddress = new DtoAddress();
         dtoAddress.setCity(address.getCity());
         dtoAddress.setDistrict(address.getDistrict());
+        dtoAddress.setId(address.getId());
+        dtoAddress.setCreateTime(address.getCreateTime());
         return dtoAddress;
     }
 }

@@ -11,6 +11,8 @@ public class AccountMapper {
         DtoAccount dtoAccount = new DtoAccount();
         dtoAccount.setAccountNo(account.getAccountNo());
         dtoAccount.setAmount(account.getAmount());
+        dtoAccount.setId(account.getId());
+        dtoAccount.setCreateTime(account.getCreateTime());
         return dtoAccount;
     }
 }

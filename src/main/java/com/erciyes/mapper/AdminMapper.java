@@ -10,6 +10,8 @@ public class AdminMapper {
         if (admin == null) {return null;}
         DtoAdmin dtoAdmin = new DtoAdmin();
         dtoAdmin.setUserName(admin.getUserName());
+        dtoAdmin.setId(admin.getId());
+        dtoAdmin.setCreateTime(admin.getCreateTime());
         return dtoAdmin;
     }
 }

@@ -18,6 +18,10 @@ public class BarberShopMapper {
         dtoBarberShop.setAddres(barberShop.getAddress());
         dtoBarberShop.setPhoneNumber(barberShop.getPhoneNumber());
 //        dtoBarberShop.setHairdresser(barberShop.getHairdresser());
+        dtoBarberShop.setId(barberShop.getId());
+        dtoBarberShop.setCreateTime(barberShop.getCreateTime());
+        dtoBarberShop.setOpeningTime(barberShop.getOpeningTime());
+        dtoBarberShop.setClosingTime(barberShop.getClosingTime());
         return dtoBarberShop;
     }
 
