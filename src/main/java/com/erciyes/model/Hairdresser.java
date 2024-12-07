@@ -26,7 +26,7 @@ public class Hairdresser extends BaseEntity{
     private CurrencyType currencyType;
 
     @ManyToOne
-    @JoinColumn(name = "barber_shop_id")
+    //@JoinColumn(name = "barber_shop_id")
     private BarberShop barberShop;
 
     @OneToMany(mappedBy = "hairdresser",cascade = CascadeType.ALL)

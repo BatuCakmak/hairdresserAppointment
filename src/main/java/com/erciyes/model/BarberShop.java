@@ -33,8 +33,8 @@ public class BarberShop extends BaseEntity{
     @OneToOne
     private Address address;
 
-    @OneToMany
-    private List<Hairdresser> hairdressers;
+    @OneToMany(mappedBy = "barberShop", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Hairdresser> hairdresser;
 
 
 

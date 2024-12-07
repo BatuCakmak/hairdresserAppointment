@@ -19,7 +19,7 @@ public class BarberShopMapper {
         dtoBarberShop.setName(barberShop.getName());
         dtoBarberShop.setAddres(barberShop.getAddress());
         dtoBarberShop.setPhoneNumber(barberShop.getPhoneNumber());
-        dtoBarberShop.setHairdressers(new ArrayList<>(barberShop.getHairdressers()));
+        dtoBarberShop.setHairdressers(new ArrayList<>(barberShop.getHairdresser()));
         dtoBarberShop.setId(barberShop.getId());
         dtoBarberShop.setCreateTime(barberShop.getCreateTime());
         dtoBarberShop.setOpeningTime(barberShop.getOpeningTime());

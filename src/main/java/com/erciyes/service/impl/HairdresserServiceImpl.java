@@ -6,6 +6,7 @@ import com.erciyes.exception.ErrorMessage;
 import com.erciyes.exception.MessageType;
 import com.erciyes.mapper.HairdresserMapper;
 import com.erciyes.model.Hairdresser;
+import com.erciyes.repository.BarberShopRepository;
 import com.erciyes.repository.HairdresserRepository;
 import com.erciyes.service.IHairdresserService;
 import org.springframework.beans.BeanUtils;
@@ -28,6 +29,9 @@ public class HairdresserServiceImpl implements IHairdresserService {
     @Autowired
     private HairdresserMapper hairdresserMapper;
 
+    @Autowired
+    private BarberShopRepository barberShopRepository;
+
     @Override
     public DtoHairdresser createHairdresser(Hairdresser hairdresser) {
         hairdresser.setCreateTime(new Date());
@@ -40,6 +44,7 @@ public class HairdresserServiceImpl implements IHairdresserService {
         BeanUtils.copyProperties(hairdresser, dtoHairdresser);
         return dtoHairdresser;
     }
+
 
     @Override
     public List<DtoHairdresser> getAllHairdressers() {

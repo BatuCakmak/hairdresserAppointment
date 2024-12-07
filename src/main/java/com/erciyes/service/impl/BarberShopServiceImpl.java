@@ -5,6 +5,7 @@ import com.erciyes.mapper.BarberShopMapper;
 import com.erciyes.model.BarberShop;
 import com.erciyes.model.Hairdresser;
 import com.erciyes.repository.BarberShopRepository;
+import com.erciyes.repository.HairdresserRepository;
 import com.erciyes.service.IBarberShopService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class BarberShopServiceImpl implements IBarberShopService {
 
     @Autowired
     private BarberShopMapper barberShopMapper;
+
+    @Autowired
+    private HairdresserRepository hairdresserRepository;
 
     @Override
     public DtoBarberShop createBarberShop(BarberShop barberShop) {
@@ -54,13 +58,20 @@ public class BarberShopServiceImpl implements IBarberShopService {
         return null;
     }
 
+
+    @Override
+    public void deleteBarberShopfromHairdresser(Long barberShopId) {
+        Optional<BarberShop> barberShop=barberShopRepository.findById(barberShopId);
+        BarberShop current=barberShop.get();
+        current.getHairdresser().clear();
+        updateBarberShop(current.getId(),current);
+    }
+
     @Override
     public void deleteBarberShop(Long id) {
         Optional<BarberShop> optional=barberShopRepository.findById(id);
 
-        //relaitonları yani foreign keyleri silmeden nesne silinmiyo bu yüzden null atadım
-        optional.get().setAddress(null);
-        updateBarberShop(optional.get().getId(),optional.get());
+        //deleteBarberShopfromHairdresser(id);
         if (optional.isPresent()){
             barberShopRepository.delete(optional.get());
         }
@@ -83,10 +94,10 @@ public class BarberShopServiceImpl implements IBarberShopService {
 
 
             List<Hairdresser> hairdresserList=new ArrayList<>();
-            for (Hairdresser hairdresser : barberShop.getHairdressers()){
+            for (Hairdresser hairdresser : barberShop.getHairdresser()){
                 hairdresserList.add(hairdresser);
             }
-            dbBarberShop.setHairdressers(hairdresserList);
+            dbBarberShop.setHairdresser(hairdresserList);
 
 
             BarberShop updatedBarberShop=barberShopRepository.save(dbBarberShop);
