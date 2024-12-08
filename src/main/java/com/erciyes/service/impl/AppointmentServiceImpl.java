@@ -1,11 +1,19 @@
 package com.erciyes.service.impl;
 
 import com.erciyes.dto.DtoAppointment;
+import com.erciyes.dto.TimeSlot;
+import com.erciyes.enums.AppointmentStatusType;
 import com.erciyes.enums.ServiceType;
+import com.erciyes.exception.MessageType;
 import com.erciyes.mapper.AppointmentMapper;
 import com.erciyes.model.Appointment;
 import com.erciyes.model.BarberShop;
+import com.erciyes.model.Services;
+import com.erciyes.model.User;
 import com.erciyes.repository.AppointmentRepository;
+import com.erciyes.repository.BarberShopRepository;
+import com.erciyes.repository.ServicesRepository;
+import com.erciyes.repository.UserRepository;
 import com.erciyes.service.IAppointmentService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +36,58 @@ public class AppointmentServiceImpl implements IAppointmentService {
 
     @Autowired
     private AppointmentMapper appointmentMapper;
+
+    @Autowired
+    private BarberShopRepository barberShopRepository;
+
+    @Autowired
+    private ServicesRepository servicesRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
     @Override
-    public DtoAppointment createAppointment(Appointment appointment) {
-        appointment.setCreateTime(new Date());
-        DtoAppointment dtoAppointment = new DtoAppointment();
-        appointmentRepository.save(appointment);
-        BeanUtils.copyProperties(appointment, dtoAppointment);
-        return dtoAppointment;
+    public DtoAppointment createAppointment(DtoAppointment request) {
+//        appointment.setCreateTime(new Date());
+//        DtoAppointment dtoAppointment = new DtoAppointment();
+//        appointmentRepository.save(appointment);
+//        BeanUtils.copyProperties(appointment, dtoAppointment);
+//        return dtoAppointment;
+
+            BarberShop barberShop = barberShopRepository.findById(request.getBarbershop().getId())
+                    .orElseThrow(() -> new RuntimeException("Barber shop not found"));
+
+            Services service = servicesRepository.findById(request.getService().getId())
+                    .orElseThrow(() -> new RuntimeException("Service not found"));
+
+            User user = userRepository.findById(request.getUser().getId())
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+
+//            LocalDateTime startDateTime = LocalDateTime.of(request.getDate(), request.getStartTime());
+//            LocalTime endDateTime = LocalTime.from(startDateTime.plusMinutes(service.getDuration()));
+
+        LocalDateTime startTime = LocalDateTime.of(request.getDate(), request.getStartTime());
+        LocalDateTime endTime = startTime.plusMinutes(service.getDuration());
+
+
+        if (!isSlotAvailable(barberShop.getId(), request.getDate(), request.getStartTime(), request.getStartTime().plusMinutes(service.getDuration()))) {
+                throw new RuntimeException("Seçilen zaman dilimi uygun değil!");
+            }
+
+            Appointment appointment = new Appointment();
+            appointment.setCreateTime(new Date());
+            appointment.setBarbershop(request.getBarbershop());
+            appointment.setHairdresser(request.getHairdresser());
+            appointment.setService(request.getService());
+            appointment.setUser(request.getUser());
+            appointment.setStartTime(startTime);
+            appointment.setEndTime(endTime);
+            appointment.setDate(request.getDate().atStartOfDay());
+            appointment.setStatusType(AppointmentStatusType.BOOKED);
+
+
+            appointmentRepository.save(appointment);
+        return  appointmentMapper.toDto(appointment);
     }
 
     @Override
@@ -60,45 +113,40 @@ public class AppointmentServiceImpl implements IAppointmentService {
 
     @Override
     public void deleteAppointment(Long id) {
-         appointmentRepository.deleteById(id);
-    }
-
-    @Override
-    public DtoAppointment updateAppointment(Long id, Appointment appointment) {
-        Optional<Appointment> optional=appointmentRepository.findById(id);
-        if (optional.isPresent()){
-            appointment.setId(id);
-            Appointment dbAppointment=appointmentRepository.save(appointment);
-            return appointmentMapper.toDto(dbAppointment);
-        }
-        return null;
-    }
-
-    @Override
-    public List<LocalDateTime> getAvailableTimeSlots(BarberShop barbershop, LocalDate date, ServiceType serviceType) {
-        LocalTime openingTime = barbershop.getOpeningTime();
-        LocalTime closingTime = barbershop.getClosingTime();
-
-        List<LocalDateTime> availableSlots = new ArrayList<>();
-        LocalDateTime currentSlot = date.atTime(openingTime);
-
-        while (!currentSlot.isAfter(date.atTime(closingTime.minusMinutes(serviceType.getDuration())))) {
-            availableSlots.add(currentSlot);
-            currentSlot = currentSlot.plusMinutes(30);
+        Optional<Appointment> optAppointment=appointmentRepository.findById(id);
+        if (optAppointment.isPresent()){
+            appointmentRepository.deleteById(optAppointment.get().getId());
         }
 
-        // Zaten dolu olan slotları filtrele
-        List<Appointment> existingAppointments = appointmentRepository.findByBarbershopAndStartTimeBetween(
-                barbershop, date.atTime(openingTime), date.atTime(closingTime)
-        );
-
-        return availableSlots.stream()
-                .filter(slot -> existingAppointments.stream()
-                        .noneMatch(appointment ->
-                                !slot.plusMinutes(serviceType.getDuration()).isBefore(appointment.getStartTime()) &&
-                                        !slot.isAfter(appointment.getEndTime())
-                        )
-                )
-                .collect(Collectors.toList());
     }
+
+
+    public List<TimeSlot> getAvailableTimeSlots(Long barbershopId, LocalDate day) {
+        BarberShop barberShop = barberShopRepository.findById(barbershopId)
+                .orElseThrow(() -> new RuntimeException("Barber shop not found"));
+
+        LocalTime openingTime = barberShop.getOpeningTime();
+        LocalTime closingTime = barberShop.getClosingTime();
+
+        List<TimeSlot> timeSlots = new ArrayList<>();
+        LocalTime currentTime = openingTime;
+
+        while (currentTime.isBefore(closingTime)) {
+            LocalTime endTime = currentTime.plusMinutes(30);
+            boolean isAvailable = isSlotAvailable(barbershopId, day, currentTime, endTime);
+            timeSlots.add(new TimeSlot(currentTime, endTime, isAvailable));
+            currentTime = endTime;
+        }
+
+        return timeSlots;
+    }
+
+    // Zaman diliminin müsaitliğini kontrol et
+    private boolean isSlotAvailable(Long barbershopId, LocalDate day, LocalTime startTime, LocalTime endTime) {
+        LocalDateTime startDateTime = LocalDateTime.of(day, startTime);
+        LocalDateTime endDateTime = LocalDateTime.of(day, endTime);
+
+        return appointmentRepository.findOverlappingAppointmentsForBarberShop(barbershopId, startDateTime, endDateTime).isEmpty();
+    }
+
 }

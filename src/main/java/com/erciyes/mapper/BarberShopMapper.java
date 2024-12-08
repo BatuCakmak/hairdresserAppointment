@@ -6,6 +6,8 @@ import com.erciyes.model.BarberShop;
 import com.erciyes.model.Hairdresser;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+
 @Component
 public class BarberShopMapper {
 
@@ -17,7 +19,11 @@ public class BarberShopMapper {
         dtoBarberShop.setName(barberShop.getName());
         dtoBarberShop.setAddres(barberShop.getAddress());
         dtoBarberShop.setPhoneNumber(barberShop.getPhoneNumber());
-//        dtoBarberShop.setHairdresser(barberShop.getHairdresser());
+        dtoBarberShop.setHairdressers(new ArrayList<>(barberShop.getHairdresser()));
+        dtoBarberShop.setId(barberShop.getId());
+        dtoBarberShop.setCreateTime(barberShop.getCreateTime());
+        dtoBarberShop.setOpeningTime(barberShop.getOpeningTime());
+        dtoBarberShop.setClosingTime(barberShop.getClosingTime());
         return dtoBarberShop;
     }
 

@@ -3,8 +3,11 @@ package com.erciyes.model;
 import com.erciyes.enums.AppointmentStatusType;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,16 +31,25 @@ public class Appointment extends BaseEntity{
     private LocalDateTime startTime;
 
     private LocalDateTime endTime;
-    @ManyToOne // Appointment ile Barbershop arasında ilişki
-    private BarberShop barbershop;
+    private LocalDateTime date;
+
+    @Enumerated(EnumType.STRING)
+    private AppointmentStatusType statusType;
 
     @ManyToOne
-    private Services services;
-
-    @ManyToOne
-    @JoinColumn(name = "hair_dresser_id")
+    @JoinColumn(name = "hairdresser_id")
     private Hairdresser hairdresser;
 
+    @ManyToOne
+    @JoinColumn(name = "service_id")
+    private Services service;
+
+    @ManyToOne
+    @JoinColumn(name = "barbershop_id")
+    private BarberShop barbershop;
+
+    @OneToOne
+    private User user;
 
 
 }

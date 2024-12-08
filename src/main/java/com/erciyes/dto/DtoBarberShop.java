@@ -17,9 +17,9 @@ import java.util.List;
 public class DtoBarberShop extends DtoBase{
     private String name;
     private String phoneNumber;
+    private String description;
     private Address addres;
     private LocalTime openingTime;
-
     private LocalTime closingTime;
-//    private List<Hairdresser> hairdresser = new ArrayList<>();
+    private List<Hairdresser> hairdressers;
 }

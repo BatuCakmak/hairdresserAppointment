@@ -12,9 +12,10 @@ public class ServiceMapper {
         }
         DtoServices dtoServices = new DtoServices();
         dtoServices.setName(service.getName());
-        dtoServices.setBarberShop(service.getBarberShop());
         dtoServices.setDuration(service.getDuration());
         dtoServices.setPrice(service.getPrice());
+        dtoServices.setId(service.getId());
+        dtoServices.setCreateTime(service.getCreateTime());
         return dtoServices;
     }
 }

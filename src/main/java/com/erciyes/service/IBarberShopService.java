@@ -11,5 +11,7 @@ public interface IBarberShopService {
     public List<DtoBarberShop> getAllBarberShops();
     public DtoBarberShop getBarberShopById(Long id);
     public void deleteBarberShop(Long id);
+    public void deleteBarberShopfromHairdresser(Long barberShopId);
+
     public DtoBarberShop updateBarberShop(Long id , BarberShop barberShop);
 }

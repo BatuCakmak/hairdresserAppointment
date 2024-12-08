@@ -3,7 +3,9 @@ package com.erciyes.service.impl;
 import com.erciyes.dto.DtoBarberShop;
 import com.erciyes.mapper.BarberShopMapper;
 import com.erciyes.model.BarberShop;
+import com.erciyes.model.Hairdresser;
 import com.erciyes.repository.BarberShopRepository;
+import com.erciyes.repository.HairdresserRepository;
 import com.erciyes.service.IBarberShopService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,9 @@ public class BarberShopServiceImpl implements IBarberShopService {
 
     @Autowired
     private BarberShopMapper barberShopMapper;
+
+    @Autowired
+    private HairdresserRepository hairdresserRepository;
 
     @Override
     public DtoBarberShop createBarberShop(BarberShop barberShop) {
@@ -53,18 +58,51 @@ public class BarberShopServiceImpl implements IBarberShopService {
         return null;
     }
 
+
+    @Override
+    public void deleteBarberShopfromHairdresser(Long barberShopId) {
+        Optional<BarberShop> barberShop=barberShopRepository.findById(barberShopId);
+        BarberShop current=barberShop.get();
+        current.getHairdresser().clear();
+        updateBarberShop(current.getId(),current);
+    }
+
     @Override
     public void deleteBarberShop(Long id) {
-          barberShopRepository.deleteById(id);
+        Optional<BarberShop> optional=barberShopRepository.findById(id);
+
+        //deleteBarberShopfromHairdresser(id);
+        if (optional.isPresent()){
+            barberShopRepository.delete(optional.get());
+        }
     }
 
     @Override
     public DtoBarberShop updateBarberShop(Long id, BarberShop barberShop) {
         Optional<BarberShop> optional=barberShopRepository.findById(id);
         if (optional.isPresent()){
-            barberShop.setId(id);
-            BarberShop dbBarberShop=barberShopRepository.save(barberShop);
-            return barberShopMapper.toDto(dbBarberShop);
+            BarberShop dbBarberShop=optional.get();
+
+
+            dbBarberShop.setName(barberShop.getName());
+            dbBarberShop.setPhoneNumber(barberShop.getPhoneNumber());
+            dbBarberShop.setDescription(barberShop.getDescription());
+            dbBarberShop.setOpeningTime(barberShop.getOpeningTime());
+            dbBarberShop.setClosingTime(barberShop.getClosingTime());
+            dbBarberShop.setAddress(barberShop.getAddress());
+
+
+
+            List<Hairdresser> hairdresserList=new ArrayList<>();
+            for (Hairdresser hairdresser : barberShop.getHairdresser()){
+                hairdresserList.add(hairdresser);
+            }
+            dbBarberShop.setHairdresser(hairdresserList);
+
+
+            BarberShop updatedBarberShop=barberShopRepository.save(dbBarberShop);
+            return barberShopMapper.toDto(updatedBarberShop);
+
         }
         return null;
     }

@@ -10,26 +10,26 @@ import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class DtoAppointment extends DtoBase{
-    private LocalDateTime startTime;
+    private LocalTime startTime;
+    private LocalTime endTime;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate date;
 
-    private LocalDateTime endTime;
+    private User user;
+    private Services service;
 
-
-    @ManyToOne
-    private Services services;
-
-    @ManyToOne
-    @JoinColumn(name = "hairdresser_id")
     private Hairdresser hairdresser;
 
-    @ManyToOne // Appointment ile Barbershop arasında ilişki
     private BarberShop barbershop;
 
 }
