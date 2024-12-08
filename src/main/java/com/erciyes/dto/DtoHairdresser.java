@@ -1,5 +1,6 @@
 package com.erciyes.dto;
 
+import com.erciyes.enums.CurrencyType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,8 +12,11 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class DtoHairdresser extends DtoBase{
+    private Long id;
     private String name;
 
     private String lastName;
+
+    private CurrencyType currencyType;
 
 }

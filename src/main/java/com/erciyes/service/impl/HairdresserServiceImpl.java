@@ -29,9 +29,6 @@ public class HairdresserServiceImpl implements IHairdresserService {
     @Autowired
     private HairdresserMapper hairdresserMapper;
 
-    @Autowired
-    private BarberShopRepository barberShopRepository;
-
     @Override
     public DtoHairdresser createHairdresser(Hairdresser hairdresser) {
         hairdresser.setCreateTime(new Date());

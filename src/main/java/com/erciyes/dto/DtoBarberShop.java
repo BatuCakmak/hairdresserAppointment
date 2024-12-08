@@ -21,5 +21,5 @@ public class DtoBarberShop extends DtoBase{
     private Address addres;
     private LocalTime openingTime;
     private LocalTime closingTime;
-    private List<Hairdresser> hairdressers;
+    private List<DtoHairdresser> hairdressers;
 }
