@@ -16,6 +16,5 @@ public interface IAppointmentService {
     public List<DtoAppointment> getAllAppointments();
     public DtoAppointment getAppointmentById(Long id);
     public void deleteAppointment(Long id);
-    public DtoAppointment updateAppointment(Long id , Appointment appointment);
     public List<TimeSlot> getAvailableTimeSlots(Long barbershopId, LocalDate day);
 }

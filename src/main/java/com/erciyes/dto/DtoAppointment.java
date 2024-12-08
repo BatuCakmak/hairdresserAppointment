@@ -21,6 +21,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 public class DtoAppointment extends DtoBase{
     private LocalTime startTime;
+    private LocalTime endTime;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate date;
 

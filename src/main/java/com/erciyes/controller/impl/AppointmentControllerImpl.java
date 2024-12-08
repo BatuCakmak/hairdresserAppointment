@@ -63,15 +63,10 @@ public class AppointmentControllerImpl implements IAppointmentController {
         return appointmentService.getAppointmentById(id);
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete/{id}")
     @Override
     public void deleteAppointment(@PathVariable(name= "id") Long id) {
         appointmentService.deleteAppointment(id);
     }
 
-    @PutMapping("/update/{id}")
-    @Override
-    public DtoAppointment updateAppointment(@PathVariable(name= "id") Long id, @RequestBody @Valid Appointment appointment) {
-        return appointmentService.updateAppointment(id, appointment);
-    }
 }

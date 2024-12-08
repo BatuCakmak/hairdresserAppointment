@@ -15,10 +15,12 @@ public class AppointmentMapper {
         dtoAppointment.setHairdresser(appointment.getHairdresser());
         dtoAppointment.setService(appointment.getService());
         dtoAppointment.setBarbershop(appointment.getBarbershop());
-        //dtoAppointment.setEndTime(appointment.getEndTime());
+        dtoAppointment.setEndTime(appointment.getEndTime().toLocalTime());
         dtoAppointment.setStartTime(LocalTime.from(LocalDateTime.from(appointment.getStartTime())));
         dtoAppointment.setId(appointment.getId());
+//        dtoAppointment.setUser(appointment.getUser());
         dtoAppointment.setCreateTime(appointment.getCreateTime());
+        dtoAppointment.setDate(appointment.getDate().toLocalDate());
         return dtoAppointment;
     }
 }

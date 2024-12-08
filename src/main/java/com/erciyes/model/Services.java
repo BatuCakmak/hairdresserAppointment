@@ -24,8 +24,6 @@ public class Services extends BaseEntity{
 
     private BigDecimal price;
 
-    private int durationTime;
-
     @ManyToMany(mappedBy = "services")
     private List<Hairdresser> hairdressers;
 

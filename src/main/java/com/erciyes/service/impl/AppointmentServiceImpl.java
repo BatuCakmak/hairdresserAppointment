@@ -4,6 +4,7 @@ import com.erciyes.dto.DtoAppointment;
 import com.erciyes.dto.TimeSlot;
 import com.erciyes.enums.AppointmentStatusType;
 import com.erciyes.enums.ServiceType;
+import com.erciyes.exception.MessageType;
 import com.erciyes.mapper.AppointmentMapper;
 import com.erciyes.model.Appointment;
 import com.erciyes.model.BarberShop;
@@ -76,15 +77,17 @@ public class AppointmentServiceImpl implements IAppointmentService {
             Appointment appointment = new Appointment();
             appointment.setCreateTime(new Date());
             appointment.setBarbershop(request.getBarbershop());
+            appointment.setHairdresser(request.getHairdresser());
             appointment.setService(request.getService());
             appointment.setUser(request.getUser());
             appointment.setStartTime(startTime);
             appointment.setEndTime(endTime);
+            appointment.setDate(request.getDate().atStartOfDay());
             appointment.setStatusType(AppointmentStatusType.BOOKED);
 
 
             appointmentRepository.save(appointment);
-        return             appointmentMapper.toDto(appointment);
+        return  appointmentMapper.toDto(appointment);
     }
 
     @Override
@@ -110,19 +113,13 @@ public class AppointmentServiceImpl implements IAppointmentService {
 
     @Override
     public void deleteAppointment(Long id) {
-         appointmentRepository.deleteById(id);
+        Optional<Appointment> optAppointment=appointmentRepository.findById(id);
+        if (optAppointment.isPresent()){
+            appointmentRepository.deleteById(optAppointment.get().getId());
+        }
+
     }
 
-    @Override
-    public DtoAppointment updateAppointment(Long id, Appointment appointment) {
-        Optional<Appointment> optional=appointmentRepository.findById(id);
-        if (optional.isPresent()){
-            appointment.setId(id);
-            Appointment dbAppointment=appointmentRepository.save(appointment);
-            return appointmentMapper.toDto(dbAppointment);
-        }
-        return null;
-    }
 
     public List<TimeSlot> getAvailableTimeSlots(Long barbershopId, LocalDate day) {
         BarberShop barberShop = barberShopRepository.findById(barbershopId)

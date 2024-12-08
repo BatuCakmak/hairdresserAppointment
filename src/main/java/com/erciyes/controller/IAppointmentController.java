@@ -22,7 +22,6 @@ public interface IAppointmentController {
 
     public void deleteAppointment(Long id);
 
-    public DtoAppointment updateAppointment(Long id, Appointment appointment);
 
     public ResponseEntity<List<TimeSlot>> getAvailableTimeSlots(Long barbershopId, LocalDate day);
 
