@@ -7,7 +7,8 @@ const initialState = {
     userName: "",
     phoneNumber: "",
     email: "",
-    password: ""
+    password: "",
+    loginStatus: 0
 }
 
 const loginSlice = createSlice({
@@ -59,6 +60,7 @@ const loginSlice = createSlice({
 
             try {
                 const response = await axios.post("http://localhost:8080/authenticate", loginUser)
+                state.loginStatus = response.status
                 if (response.status === 200) {
                     console.log("status kodu : ", response.status);
                     console.log(response.data)
