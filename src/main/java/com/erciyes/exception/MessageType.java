@@ -14,7 +14,9 @@ public enum MessageType {
     USERNAME_OR_PASSWORD_INVALID("1007","kullanıcı adı veya şifre hatalı"),
     GENERAL_EXCEPTİON("9999","genel bir hata oluştu"),
     HAIRDRESSER_ALREADY_EXIST("1006","Kuafor zaten mevcut"),
-    USERNAME_ALREADY_EXIST("1006", "Kullanici zaten mevcut" );
+    USERNAME_ALREADY_EXIST("1006", "Kullanici zaten mevcut" ),
+    EMAIL_ALREADY_EXIST("1006", "Bu emailde kullanici zaten mevcut" ),
+    USER_NOT_ENABLED("1006", "Hesabinizi Dogrulamadan Giris Yapamazsiniz");
 
 
     private String code;

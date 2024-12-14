@@ -1,6 +1,7 @@
 package com.erciyes.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.*;
 
@@ -17,4 +18,6 @@ public class EmailVerificationToken extends BaseEntity {
     private String email;
     private String token;
     private LocalDateTime expiryDate;
+    @ManyToOne
+    private User user;
 }

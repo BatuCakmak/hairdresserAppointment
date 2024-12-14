@@ -28,6 +28,8 @@ public class User extends BaseEntity implements UserDetails {
     private Date birthOfDate;
     private String tckn;
     private String phoneNumber;
+    @Column(name = "is_enabled")
+    private boolean isEnabled;
 
     @Enumerated(EnumType.STRING)
     private Role role;

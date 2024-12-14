@@ -55,6 +55,7 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
         user.setLastName(input.getLastName());
         user.setPhoneNumber(input.getPhoneNumber());
         user.setRole(Role.ADMIN);
+        user.setEnabled(false);
 
         //eklenecek  birşeyler
         return user;
@@ -75,6 +76,10 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
         if(userRepository.existsByUsername(register.getUsername())){
             throw new BaseException(new ErrorMessage(MessageType.USERNAME_ALREADY_EXIST,register.getUsername()));
         }
+        if(userRepository.existsByEmail(register.getEmail())){
+            throw new BaseException(new ErrorMessage(MessageType.EMAIL_ALREADY_EXIST,register.getEmail()));
+        }
+
         User savedUser=userRepository.save(createUser(register));
         DtoUser dtoUser=new DtoUser();
         BeanUtils.copyProperties(savedUser,dtoUser);
@@ -85,11 +90,13 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 
     @Override
     public AuthResponse authenticate(DtoLogin login) {
+        Optional<User> optUser =userRepository.findByUsername(login.getUsername());
+        if (!optUser.get().isEnabled()) {
+            throw new BaseException(new ErrorMessage(MessageType.USER_NOT_ENABLED, optUser.get().getUsername()));
+        }
         try {
             UsernamePasswordAuthenticationToken authenticationToken=
                     new UsernamePasswordAuthenticationToken(login.getUsername(),login.getPassword());
-            Optional<User> optUser =userRepository.findByUsername(login.getUsername());
-
             authenticationProvider.authenticate(authenticationToken);
 
 

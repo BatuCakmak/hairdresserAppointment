@@ -28,8 +28,9 @@ public class RestAuthenticationControllerImpl extends RestBaseController impleme
     @Override
     public RootEntity<DtoUser> register(@Valid @RequestBody DtoRegister register) {
         String email = register.getEmail();
+        authenticationService.register(register);
         emailService.sendMail(email);
-        return ok(authenticationService.register(register));
+        return RootEntity.message("Kayıt işlemi başarılı! Lütfen e-posta adresinizi doğrulayın.");
     }
 
     @PostMapping("/authenticate")

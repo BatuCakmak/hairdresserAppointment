@@ -24,6 +24,7 @@ public class UserMapper {
         dtoUser.setUsername(user.getUsername());
         dtoUser.setId(user.getId());
         dtoUser.setCreateTime(user.getCreateTime());
+        dtoUser.setEnable(user.isEnabled());
         return dtoUser;
     }
 }

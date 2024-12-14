@@ -11,6 +11,7 @@ public class RootEntity<T>{
     private Integer status;
     private T payload;
     private String errorMessage;
+    private String message;
 
     public static  <T> RootEntity<T> ok(T payload){
         RootEntity<T> rootEntity=new RootEntity<>();
@@ -25,6 +26,13 @@ public class RootEntity<T>{
         rootEntity.setStatus(500);
         rootEntity.setPayload(null);
         rootEntity.setErrorMessage(errorMessage);
+        return rootEntity;
+    }
+    public static <T> RootEntity<T> message(String message) {
+        RootEntity<T> rootEntity=new RootEntity<>();
+        rootEntity.setStatus(200);
+        rootEntity.setMessage(message);
+        rootEntity.setErrorMessage(null);
         return rootEntity;
     }
 

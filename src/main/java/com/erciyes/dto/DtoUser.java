@@ -22,6 +22,7 @@ public class DtoUser extends DtoBase{
     private String password;
     private String username;
     private String phoneNumber;
+    private boolean isEnable;
 
 
 }
