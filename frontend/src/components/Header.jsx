@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import "../css/homePage.css"
 import { useLocation, useNavigate } from 'react-router'
 import { useSelector } from 'react-redux';
@@ -7,7 +7,7 @@ function Header() {
 
     const navigate = useNavigate();
 
-    const { firstName, loginStatus } = useSelector((state) => state.login)
+    const { userName, loginStatus } = useSelector((state) => state.login)
 
     return (
         <div className='header-main'>
@@ -19,9 +19,9 @@ function Header() {
                 <div>
                     {
                         loginStatus === 200 ? (
-                            <h2>{firstName}</h2>
+                            <h2>{userName}</h2>
                         ) : (
-                            <button onClick={() => navigate("/login")} type="button" class="btn btn-primary">Sign-In</button>
+                            <button onClick={() => navigate("/login")} type="button" className="btn btn-primary">Sign-In</button>
                         )
                     }
                 </div>

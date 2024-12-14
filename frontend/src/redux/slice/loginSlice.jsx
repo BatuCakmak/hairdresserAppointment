@@ -8,7 +8,8 @@ const initialState = {
     phoneNumber: "",
     email: "",
     password: "",
-    loginStatus: 0
+    loginStatus: null,
+    errorMessage: ""
 }
 
 const loginSlice = createSlice({
@@ -32,47 +33,6 @@ const loginSlice = createSlice({
         },
         setPassword: (state, action) => {
             state.password = action.payload;
-        },
-
-        handleSignUp: async (state, action) => {
-            const createUser = {
-                firstName: state.firstName,
-                lastName: state.lastName,
-                username: state.userName,
-                phoneNumber: state.phoneNumber,
-                email: state.email,
-                password: state.password
-            }
-
-            const response = await axios.post("http://localhost:8080/register", createUser).catch((error) => {
-                if (error.response) {
-                    console.log(error.response.data);
-                    console.log(error.response.status);
-                }
-            })
-        },
-
-        handleSignIn: async (state, action) => {
-            const loginUser = {
-                username: state.userName,
-                password: state.password
-            }
-
-            try {
-                const response = await axios.post("http://localhost:8080/authenticate", loginUser)
-                state.loginStatus = response.status
-                if (response.status === 200) {
-                    console.log("status kodu : ", response.status);
-                    console.log(response.data)
-                    navigate("/");
-                }
-            }
-            catch (error) {
-                if (error.response) {
-                    console.log(error.response.data);
-                    console.log(error.response.status);
-                }
-            }
         }
     }
 })

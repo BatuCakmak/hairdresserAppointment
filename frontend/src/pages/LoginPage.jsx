@@ -7,17 +7,60 @@ import axios from "axios";
 import { paperClasses, unstable_ClassNameGenerator } from "@mui/material";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { handleSignIn, handleSignUp, setEmail, setFirstName, setLastName, setPassword, setPhoneNumber, setUserName } from "../redux/slice/loginSlice";
+import { setEmail, setFirstName, setLastName, setPassword, setPhoneNumber, setUserName } from "../redux/slice/loginSlice";
 
 function LoginPage() {
 
     const [isFlipped, setIsFlipped] = useState(false);
 
-    const { firstName, lastName, userName, phoneNumber, email, password } = useSelector((state) => state.login)
+    const navigate = useNavigate();
+
+    const { firstName, lastName, userName, phoneNumber, email, password, loginStatus } = useSelector((state) => state.login)
     const dispatch = useDispatch();
 
     function flipCard() {
         setIsFlipped(!isFlipped);
+    }
+
+    const handleSignUp = async () => {
+        const createUser = {
+            firstName: firstName,
+            lastName: lastName,
+            username: userName,
+            phoneNumber: phoneNumber,
+            email: email,
+            password: password
+        }
+
+        const response = await axios.post("http://localhost:8080/register", createUser).catch((error) => {
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+            }
+        })
+    }
+
+    const handleSignIn = async () => {
+        const loginUser = {
+            username: userName,
+            password: password
+        }
+
+        try {
+            const response = await axios.post("http://localhost:8080/authenticate", loginUser)
+            console.log(response.status)
+            if (response.status === 200) {
+                console.log("status kodu : ", response.status);
+                console.log(response.data);
+                navigate("/")
+            }
+        }
+        catch (error) {
+            if (error.response) {
+                console.log(error.response.data);
+                console.log(error.response.status);
+            }
+        }
     }
 
     return (
@@ -36,7 +79,7 @@ function LoginPage() {
                         <input onChange={(e) => dispatch(setPassword(e.target.value))} name="password" className="input-box" type="password" placeholder="Password" />
 
                         <div>
-                            <button onClick={() => dispatch(handleSignUp())} type="button" className="btn btn-outline-primary">Sign-Up</button>
+                            <button onClick={() => handleSignUp()} type="button" className="btn btn-outline-primary">Sign-Up</button>
                         </div>
                     </div>
 
@@ -55,7 +98,7 @@ function LoginPage() {
                         <input onChange={(e) => dispatch(setPassword(e.target.value))} className="input-box" type="password" placeholder="Password" />
 
                         <div>
-                            <button onClick={() => dispatch(handleSignIn())} type="button" className="btn btn-outline-primary">Login</button>
+                            <button onClick={() => handleSignIn()} type="button" className="btn btn-outline-primary">Login</button>
                         </div>
                     </div>
                 </div>
