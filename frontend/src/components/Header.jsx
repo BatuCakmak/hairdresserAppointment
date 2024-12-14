@@ -1,9 +1,14 @@
 import React, { useEffect } from 'react'
 import "../css/homePage.css"
+import { FaUser } from "react-icons/fa6";
+import { MdLogout } from "react-icons/md";
 import { useLocation, useNavigate } from 'react-router'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setLoginStatus } from '../redux/slice/loginSlice';
 
 function Header() {
+
+    const dispatch = useDispatch();
 
     const navigate = useNavigate();
 
@@ -18,8 +23,16 @@ function Header() {
             <div>
                 <div>
                     {
-                        loginStatus === 200 ? (
-                            <h2>{userName}</h2>
+                        loginStatus === true ? (
+                            <div style={{ display: "flex", flexDirection: "row", alignItems: "center", cursor: "pointer" }}>
+                                <div onClick={() => navigate("/user")} style={{ display: "flex", flexDirection: "row", alignItems: "center", cursor: "pointer" }} >
+                                    <FaUser size={30} /> <h2 style={{ margin: "0 1.5vh" }} >{userName}</h2>
+                                </div>
+                                <div onClick={() => [dispatch(setLoginStatus(false)), navigate("/")]} >
+                                    <MdLogout size={30} />
+                                </div>
+                            </div>
+
                         ) : (
                             <button onClick={() => navigate("/login")} type="button" className="btn btn-primary">Sign-In</button>
                         )

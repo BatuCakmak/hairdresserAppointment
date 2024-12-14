@@ -7,7 +7,7 @@ import axios from "axios";
 import { paperClasses, unstable_ClassNameGenerator } from "@mui/material";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
-import { setEmail, setFirstName, setLastName, setPassword, setPhoneNumber, setUserName } from "../redux/slice/loginSlice";
+import { setEmail, setFirstName, setLastName, setLoginStatus, setPassword, setPhoneNumber, setUserName } from "../redux/slice/loginSlice";
 
 function LoginPage() {
 
@@ -50,6 +50,7 @@ function LoginPage() {
             const response = await axios.post("http://localhost:8080/authenticate", loginUser)
             console.log(response.status)
             if (response.status === 200) {
+                dispatch(setLoginStatus(true))
                 console.log("status kodu : ", response.status);
                 console.log(response.data);
                 navigate("/")
@@ -57,6 +58,7 @@ function LoginPage() {
         }
         catch (error) {
             if (error.response) {
+                alert("Girilen bilgiler yanlış!")
                 console.log(error.response.data);
                 console.log(error.response.status);
             }

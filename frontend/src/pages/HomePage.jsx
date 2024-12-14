@@ -8,8 +8,6 @@ import { setFirstName } from '../redux/slice/loginSlice';
 function HomePage() {
     const [message, setMessage] = useState("");
 
-
-
     return (
         <div className="home-page-main">
             <Header />
