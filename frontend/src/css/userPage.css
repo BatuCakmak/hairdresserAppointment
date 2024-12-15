@@ -1,0 +1,8 @@
+.userCard-main {
+    width: 55vw;
+    height: 80vh;
+    margin-top: 5vh;
+    border-radius: 20vh;
+    border: 5px solid lightgray;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}

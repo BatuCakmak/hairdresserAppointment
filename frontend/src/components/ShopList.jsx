@@ -30,6 +30,11 @@ function ShopList() {
         fetchShops();
     }, []);
 
+    const handleSelectShop = (shop) => {
+        setSelectedShop(shop)
+        setIsOpen(false)
+    }
+
 
     return (
         <div
@@ -44,7 +49,7 @@ function ShopList() {
                         {
                             shops.length > 0 ? (
                                 shops.map((shop, index) => (
-                                    <li key={index} >
+                                    <li key={index} onClick={() => handleSelectShop(shop.name)}>
                                         {shop.name}
                                     </li>
                                 ))
