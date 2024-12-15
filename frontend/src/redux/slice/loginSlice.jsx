@@ -9,7 +9,8 @@ const initialState = {
     email: "",
     password: "",
     loginStatus: false,
-    errorMessage: ""
+    errorMessage: "",
+    emailCode: ""
 }
 
 const loginSlice = createSlice({
@@ -36,9 +37,12 @@ const loginSlice = createSlice({
         },
         setLoginStatus: (state, action) => {
             state.loginStatus = action.payload;
+        },
+        setEmailCode: (state, action) => {
+            state.emailCode = action.payload
         }
     }
 })
 
-export const { setFirstName, setLastName, setUserName, setPhoneNumber, setEmail, setPassword, setLoginStatus, handleSignUp, handleSignIn } = loginSlice.actions
+export const { setFirstName, setLastName, setUserName, setPhoneNumber, setEmail, setPassword, setLoginStatus, setEmailCode, handleSignUp, handleSignIn } = loginSlice.actions
 export default loginSlice.reducer

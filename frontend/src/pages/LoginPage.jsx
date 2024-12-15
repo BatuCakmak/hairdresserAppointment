@@ -8,14 +8,17 @@ import { paperClasses, unstable_ClassNameGenerator } from "@mui/material";
 import { useNavigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 import { setEmail, setFirstName, setLastName, setLoginStatus, setPassword, setPhoneNumber, setUserName } from "../redux/slice/loginSlice";
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+import EmailVerify from "../components/EmailVerify";
 
 function LoginPage() {
 
     const [isFlipped, setIsFlipped] = useState(false);
-
+    const [modalShow, setModalShow] = useState(false);
     const navigate = useNavigate();
 
-    const { firstName, lastName, userName, phoneNumber, email, password, loginStatus } = useSelector((state) => state.login)
+    const { firstName, lastName, userName, phoneNumber, email, password, loginStatus, emailCode } = useSelector((state) => state.login)
     const dispatch = useDispatch();
 
     function flipCard() {
@@ -81,7 +84,7 @@ function LoginPage() {
                         <input onChange={(e) => dispatch(setPassword(e.target.value))} name="password" className="input-box" type="password" placeholder="Password" />
 
                         <div>
-                            <button onClick={() => handleSignUp()} type="button" className="btn btn-outline-primary">Sign-Up</button>
+                            <button onClick={() => [handleSignUp(), setModalShow(true)]} type="button" className="btn btn-outline-primary">Sign-Up</button>
                         </div>
                     </div>
 
@@ -105,6 +108,12 @@ function LoginPage() {
                     </div>
                 </div>
             </ReactCardFlip>
+
+            <EmailVerify
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+            />
+
         </div>
     );
 }
