@@ -4,6 +4,7 @@ import KuaforList from '../components/KuaforList';
 import Services from '../components/Services';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFirstName } from '../redux/slice/loginSlice';
+import ShopList from '../components/ShopList';
 
 function HomePage() {
     const [message, setMessage] = useState("");
@@ -15,6 +16,7 @@ function HomePage() {
             <div className="home-page-content">
                 <div className='home-page-dropdown' >
                     <div className="home-page-center-box">
+                        <ShopList />
                         <KuaforList />
                         <Services />
                         <div className="home-page-center-button">

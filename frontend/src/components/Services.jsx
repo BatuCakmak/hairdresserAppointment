@@ -10,13 +10,14 @@ function Services() {
 
   const handleSelect = (service) => {
     setSelectedService(service);
-    setIsOpen(false); 
+    setIsOpen(false);
   };
 
   return (
-    <div 
-      className={`home-page-center-service ${isOpen ? 'open' : ''}`} 
+    <div
+      className={`home-page-center-service ${isOpen ? 'open' : ''}`}
       onClick={toggleDropdown}
+      style={{ marginRight: "3vh", marginLeft: "5vh" }}
     >
       <div>{selectedService || "Hizmetler"}</div>
       {isOpen && (
