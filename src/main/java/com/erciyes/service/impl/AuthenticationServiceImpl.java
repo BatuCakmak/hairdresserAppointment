@@ -6,20 +6,25 @@ import com.erciyes.exception.BaseException;
 import com.erciyes.exception.ErrorMessage;
 import com.erciyes.exception.MessageType;
 import com.erciyes.jwt.JWTService;
+import com.erciyes.model.EmailVerificationToken;
 import com.erciyes.model.RefreshToken;
 import com.erciyes.model.User;
+import com.erciyes.repository.EmailVerificationTokenRepository;
 import com.erciyes.repository.RefreshTokenRepository;
 import com.erciyes.repository.UserRepository;
 import com.erciyes.service.IAuthenticationService;
 import com.erciyes.service.MailService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
@@ -43,6 +48,10 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
 
     @Autowired
     private RefreshTokenRepository refreshTokenRepository;
+
+    @Autowired
+    private EmailVerificationTokenRepository emailVerificationTokenRepository;
+
 
 
     private User createUser(DtoRegister input){
@@ -88,10 +97,39 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
         return dtoUser;
     }
 
+
+    @Override
+    public void verify(DtoEmailVerificationToken emailVerificationToken){
+        Optional<EmailVerificationToken> optToken = emailVerificationTokenRepository.findByEmail(emailVerificationToken.getEmail());
+
+        if (emailVerificationToken.getToken() == null || !optToken.get().getToken().equals(emailVerificationToken.getToken())) {
+            throw new RuntimeException("Geçersiz kod!");
+        }
+
+        if (optToken.get().getExpiryDate().isBefore(LocalDateTime.now())) {
+            throw new RuntimeException("Kodun süresi dolmuş");
+        }
+
+        EmailVerificationToken token = optToken.get();
+        User user = token.getUser(); // Token üzerinden kullanıcıya erişim
+
+        if (user == null) {
+            throw new RuntimeException("Kullanici bulunamadi");
+        }
+
+        user.setEnabled(true); // Kullanıcıyı aktif hale getir
+        userRepository.save(user); // Değişikliği kaydet
+
+        // Token'ı artık kullanılamaz hale getirmek için silebilirsin
+        emailVerificationTokenRepository.delete(token);
+
+    }
+
     @Override
     public AuthResponse authenticate(DtoLogin login) {
         Optional<User> optUser =userRepository.findByUsername(login.getUsername());
         if (!optUser.get().isEnabled()) {
+
             throw new BaseException(new ErrorMessage(MessageType.USER_NOT_ENABLED, optUser.get().getUsername()));
         }
         try {
