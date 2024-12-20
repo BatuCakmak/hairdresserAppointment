@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import "../css/homePage.css"
+import "../css/headerIcons.css"
 import { FaUser } from "react-icons/fa6";
 import { MdLogout } from "react-icons/md";
 import { useLocation, useNavigate } from 'react-router'
@@ -24,11 +25,11 @@ function Header() {
                 <div>
                     {
                         loginStatus === true ? (
-                            <div style={{ display: "flex", flexDirection: "row", alignItems: "center", cursor: "pointer" }}>
-                                <div onClick={() => navigate("/user")} style={{ display: "flex", flexDirection: "row", alignItems: "center", cursor: "pointer" }} >
+                            <div className='header-user-div' style={{ display: "flex", flexDirection: "row", alignItems: "center", cursor: "pointer" }}>
+                                <div className='userIcon' onClick={() => navigate("/user")} style={{ display: "flex", flexDirection: "row", alignItems: "center", cursor: "pointer" }} >
                                     <FaUser size={30} /> <h2 style={{ margin: "0 1.5vh" }} >{userName}</h2>
                                 </div>
-                                <div onClick={() => [dispatch(setLoginStatus(false)), navigate("/")]} >
+                                <div className='logoutIcon' onClick={() => [dispatch(setLoginStatus(false)), navigate("/")]} >
                                     <MdLogout size={30} />
                                 </div>
                             </div>

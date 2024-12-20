@@ -1,8 +1,31 @@
 .userCard-main {
+    display: flex;
+    flex-direction: column;
+    padding: 15vh 7vw;
     width: 55vw;
     height: 80vh;
     margin-top: 5vh;
     border-radius: 20vh;
     border: 5px solid lightgray;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.user-info-area {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 7vh;
+    margin-bottom: 2vh;
+    border-bottom: 5px solid lightgray;
+    width: 35vw;
+}
+
+.user-info {
+    color: red;
+    margin-left: 2vw;
+}
+
+.edit-icon {
+    cursor: pointer;
 }
