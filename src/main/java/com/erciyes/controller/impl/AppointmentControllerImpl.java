@@ -19,6 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/appointment")
@@ -42,6 +43,15 @@ public class AppointmentControllerImpl implements IAppointmentController {
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate day) {
         List<TimeSlot> availableSlots = appointmentService.getAvailableTimeSlots(barbershopId, day);
         return ResponseEntity.ok(availableSlots);
+    }
+    @GetMapping("/weekly-availability")
+    public ResponseEntity<Map<LocalDate, List<TimeSlot>>> getWeeklyAvailability(
+            @RequestParam Long barbershopId,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate) {
+
+
+        Map<LocalDate, List<TimeSlot>> weeklySlots = appointmentService.getWeeklyAvailableTimeSlots(barbershopId, startDate);
+        return ResponseEntity.ok(weeklySlots);
     }
 
 

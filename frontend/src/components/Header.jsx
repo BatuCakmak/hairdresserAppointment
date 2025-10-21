@@ -3,9 +3,10 @@ import "../css/homePage.css"
 import "../css/headerIcons.css"
 import { FaUser } from "react-icons/fa6";
 import { MdLogout } from "react-icons/md";
-import { useLocation, useNavigate } from 'react-router'
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLoginStatus } from '../redux/slice/loginSlice';
+
 
 function Header() {
 

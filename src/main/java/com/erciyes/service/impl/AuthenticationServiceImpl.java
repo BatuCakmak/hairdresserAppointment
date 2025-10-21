@@ -63,7 +63,7 @@ public class AuthenticationServiceImpl implements IAuthenticationService {
         user.setFirstName(input.getFirstName());
         user.setLastName(input.getLastName());
         user.setPhoneNumber(input.getPhoneNumber());
-        user.setRole(Role.ADMIN);
+        user.setRole(Role.USER);
         user.setEnabled(false);
 
         //eklenecek  birşeyler

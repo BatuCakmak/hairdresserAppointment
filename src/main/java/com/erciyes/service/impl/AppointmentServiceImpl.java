@@ -22,10 +22,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -141,12 +138,73 @@ public class AppointmentServiceImpl implements IAppointmentService {
         return timeSlots;
     }
 
+    @Override
+    public Map<LocalDate, List<TimeSlot>> getWeeklyAvailableTimeSlots(Long barbershopId, LocalDate startDate) {
+        // LinkedHashMap kullanarak gün sırasının (Pzt, Sal, Çrş...) korunmasını sağlıyoruz.
+        Map<LocalDate, List<TimeSlot>> weeklyAvailability = new LinkedHashMap<>();
+
+        // 'startDate' (Pazartesi) tarihinden başlayarak 7 gün boyunca döner
+        for (int i = 0; i < 7; i++) {
+            LocalDate currentDay = startDate.plusDays(i);
+
+            // Zaten var olan günlük metodunuzu çağırıyoruz
+            List<TimeSlot> dailySlots = this.getAvailableTimeSlots(barbershopId, currentDay);
+
+            // O günün tarihini (key) ve o günün slot listesini (value) Map'e ekliyoruz
+            weeklyAvailability.put(currentDay, dailySlots);
+        }
+
+        return weeklyAvailability; // 7 günlük veriyi tek seferde döndür
+    }
     // Zaman diliminin müsaitliğini kontrol et
+
+
     private boolean isSlotAvailable(Long barbershopId, LocalDate day, LocalTime startTime, LocalTime endTime) {
         LocalDateTime startDateTime = LocalDateTime.of(day, startTime);
         LocalDateTime endDateTime = LocalDateTime.of(day, endTime);
 
         return appointmentRepository.findOverlappingAppointmentsForBarberShop(barbershopId, startDateTime, endDateTime).isEmpty();
     }
+
+
+    //debug control
+    /*
+    private boolean isSlotAvailable(Long barbershopId, LocalDate day, LocalTime startTime, LocalTime endTime) {
+        LocalDateTime startDateTime = LocalDateTime.of(day, startTime);
+        LocalDateTime endDateTime = LocalDateTime.of(day, endTime);
+
+        // ---- DEBUG BAŞLANGIÇ ----
+        // Hangi slotu kontrol ettiğimizi görelim
+        System.out.println("--- KONTROL EDİLİYOR ---");
+        System.out.println("BarberShop ID: " + barbershopId);
+        System.out.println("Slot Başlangıç: " + startDateTime);
+        System.out.println("Slot Bitiş: " + endDateTime);
+
+        // Sorguyu çalıştır
+        List<Appointment> overlaps = appointmentRepository.findOverlappingAppointmentsForBarberShop(barbershopId, startDateTime, endDateTime);
+
+        // Sorgu bir şey buldu mu?
+        System.out.println("Çakışan Randevu Sayısı: " + overlaps.size());
+
+        // Eğer çakışma bulduysa, o randevuları yazdıralım
+        if (!overlaps.isEmpty()) {
+            System.out.println("BULUNAN ÇAKIŞMA(LAR):");
+            overlaps.forEach(app -> System.out.println(
+                    " - ID: " + app.getId() +
+                            " | DB Başlangıç: " + app.getStartTime() +
+                            " | DB Bitiş: " + app.getEndTime()
+            ));
+        }
+
+        boolean isAvailable = overlaps.isEmpty();
+        System.out.println("Sonuç: Müsait mi?: " + isAvailable);
+        System.out.println("-------------------------");
+        // ---- DEBUG BİTİŞ ----
+
+        return isAvailable;
+    }
+    */
+
+
 
 }

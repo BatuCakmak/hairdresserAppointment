@@ -10,6 +10,7 @@ import com.erciyes.model.BarberShop;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 public interface IAppointmentService {
     public DtoAppointment createAppointment(DtoAppointment appointment);
@@ -17,4 +18,5 @@ public interface IAppointmentService {
     public DtoAppointment getAppointmentById(Long id);
     public void deleteAppointment(Long id);
     public List<TimeSlot> getAvailableTimeSlots(Long barbershopId, LocalDate day);
+    Map<LocalDate, List<TimeSlot>> getWeeklyAvailableTimeSlots(Long barbershopId, LocalDate startDate);
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 public interface IAppointmentController {
 
@@ -25,4 +26,7 @@ public interface IAppointmentController {
 
     public ResponseEntity<List<TimeSlot>> getAvailableTimeSlots(Long barbershopId, LocalDate day);
 
+    public ResponseEntity<Map<LocalDate, List<TimeSlot>>> getWeeklyAvailability(
+            @RequestParam Long barbershopId,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate);
 }

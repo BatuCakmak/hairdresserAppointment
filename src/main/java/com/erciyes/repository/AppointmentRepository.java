@@ -16,9 +16,7 @@ public interface AppointmentRepository extends JpaRepository<Appointment, Long> 
     List<Appointment> findByBarbershopAndStartTimeBetween(BarberShop barberShop, LocalDateTime start, LocalDateTime end);
 
     @Query("SELECT a FROM Appointment a WHERE a.barbershop.id = :barbershopId " +
-            "AND ((:startTime BETWEEN a.startTime AND a.endTime) OR " +
-            "(:endTime BETWEEN a.startTime AND a.endTime) OR " +
-            "(a.startTime BETWEEN :startTime AND :endTime))")
+            "AND a.startTime < :endTime AND a.endTime > :startTime")
     List<Appointment> findOverlappingAppointmentsForBarberShop(
             @Param("barbershopId") Long barbershopId,
             @Param("startTime") LocalDateTime startTime,

@@ -45,6 +45,7 @@ public class SecurityConfig {
                         .requestMatchers(DELETE,"/admin/**").hasAuthority(ADMIN_DELETE.name())
 
                         .requestMatchers("/hairdresser/**").hasAnyRole(ADMIN.name(), MANAGER.name())
+                        .requestMatchers(HttpMethod.GET, "/user/list").hasRole(ADMIN.name())
 
                         .requestMatchers(GET,"/hairdresser/**").hasAnyAuthority(ADMIN_READ.name(), MANAGER_READ.name())
                         .requestMatchers(POST,"/hairdresser/**").hasAnyAuthority(ADMIN_CREATE.name(), MANAGER_CREATE.name())

@@ -25,6 +25,11 @@ public class UserMapper {
         dtoUser.setId(user.getId());
         dtoUser.setCreateTime(user.getCreateTime());
         dtoUser.setEnable(user.isEnabled());
+        if (user.getRole() != null) {
+            dtoUser.setRole(user.getRole().name()); // örn: Role.ADMIN -> "ADMIN"
+        } else {
+            dtoUser.setRole("ROL YOK"); // Veya null bırakabilirsiniz
+        }
         return dtoUser;
     }
 }
